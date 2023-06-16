@@ -1,0 +1,100 @@
+/* COLORS */
+// Primary color 
+$color-primary-0: #236765;
+$color-primary-1: #3BAFAB;
+$color-primary-2: #2E8683;
+$color-primary-3: #194846;
+$color-primary-4: #0E2928;
+// Secondary color
+$color-secondary-0: #846F2F;
+$color-secondary-1: #FFCE3A;
+$color-secondary-2: #C9A63E;
+$color-secondary-3: #483D1B;
+$color-secondary-4: #141108;
+// Tertiary color
+$color-tertiary-0: #c3000e;
+$color-tertiary-1: #c3000e;
+$color-tertiary-2: #b2000d;
+$color-tertiary-3: #90000a;
+$color-tertiary-4: #6e0008;
+// Complementary color
+$color-complement: #FFA527;
+$color-complement-light-1: #FFC777;
+$color-complement-light-2: #FFBE61;
+$color-complement-dark-1: #C27100;
+$color-complement-dark-2: #734300;
+$color-complement-dark-3: #523002;
+
+$color-chat: #d56f7e;
+$color-chat-darkish: #be5d6b;
+$color-chat-dark: #b93649;
+$color-chat-dark-1: #bb2650;
+$color-notice: #FFBE61;
+
+$color-misc-1: #ff5781;
+$color-misc-2: #ba265d;
+
+$color-misc-3: #ffb900;
+$color-misc-4: #ce6228;
+
+$color-misc-5: #2998ff;
+$color-misc-6: #5643fa;
+$color-misc-7: #6f5fff;
+
+$colors: $color-misc-1, $color-misc-3, $color-misc-6;
+$colors-active: $color-misc-2, $color-misc-4, $color-misc-5;
+
+// Variables
+$small-font-size: 1.4rem;
+$default-font-size: 1.6rem;
+$medium-font-size: 2.4rem;
+$header-font-size: 3rem;
+$page-header-font-size: 6rem;
+$fancy-font: 'Fredoka One', cursive;
+
+// Misc colors
+$color-white: #fff;
+$color-black: #000;
+$color-grey-dark: #777;
+$color-gray-dark:#4b4b4b;
+$color-gray-light: #eeeeee;
+$color-grey-light-0: #e0e0e0;
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+$color-grey-light-3: #f0ebe1;
+$color-grey-dark-1: #54483A;
+$color-grey-dark-2: #6D5D4B;
+
+$brownish: #957029;
+
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
+$white: #eee;
+$black: #000;
+$gray: #ccc;
+$gray-dark: #aaa;
+
+// SHADOWS
+$shadow-mild: 1px 2px 3px rgba($gray, 0.5);
+$shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+$shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+$shadow-custom: 0 0 3rem rgba(0, 0, 0, 0.1);
+$shadow-custom-2: 0 0 1rem rgba(0, 0, 0, 0.2);
+$shadow-custom-3: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+
+// FONT SIZE
+$small-font-size: 1.2rem;
+$small-font-size-2: 1.4rem;
+$default-font-size: 1.6rem;
+$small-header-font-size: 2rem;
+$default-header-font-size: 2.5rem;
+$bigger-header-font-size: 3.5rem;
+
+// Breakpoints
+$bp-largest: 75em; // 1200px / 16px = 75em
+$bp-large: 62.5em; // 1000px / 16px = 62.5em
+$bp-medium: 50em; // 800px / 16px = 50em
+$bp-small: 37.5em; // 600px / 16px = 37.5em
+$bp-xsmall: 28.125em; // 450px / 16px = 28.125em

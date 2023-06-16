@@ -1,0 +1,30 @@
+@import '../../../variables';
+
+.ToolbarWrapper {
+    color: rgba($color-grey-dark, 0.85);
+    background-color: $color-white;
+    font-size: $default-font-size;
+    border-bottom: 1px solid rgba($color-grey-dark, 0.5);
+}
+
+.Toolbar {
+    // width: 65%;
+    margin: 0 auto;
+    display: flex;
+    height: 6.5rem;
+    font-weight: 600;
+
+    &__Main {
+        width: 100%;
+        margin-left: 3rem;
+        display: flex;
+
+        & > span:not(:last-child) {
+            margin-right: 2rem;
+        }
+
+        & > span:not(:first-child) {
+            margin-left: 2rem;
+        }
+    }
+}
