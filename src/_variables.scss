@@ -29,6 +29,7 @@ $color-chat: #d56f7e;
 $color-chat-darkish: #be5d6b;
 $color-chat-dark: #b93649;
 $color-chat-dark-1: #bb2650;
+$color-chat-dark-2: #8f1e3e;
 $color-notice: #FFBE61;
 
 $color-misc-1: #ff5781;
@@ -43,6 +44,8 @@ $color-misc-7: #6f5fff;
 
 $colors: $color-misc-1, $color-misc-3, $color-misc-6;
 $colors-active: $color-misc-2, $color-misc-4, $color-misc-5;
+
+$light-blue: rgba(155, 198, 255, 0.5);
 
 // Variables
 $small-font-size: 1.4rem;

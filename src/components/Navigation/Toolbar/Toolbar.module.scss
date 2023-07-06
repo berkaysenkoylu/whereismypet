@@ -8,15 +8,15 @@
 }
 
 .Toolbar {
-    // width: 65%;
+    width: 85%;
     margin: 0 auto;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 6.5rem;
     font-weight: 600;
 
     &__Main {
-        width: 100%;
-        margin-left: 3rem;
         display: flex;
 
         & > span:not(:last-child) {

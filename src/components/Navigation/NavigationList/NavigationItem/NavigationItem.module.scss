@@ -1,0 +1,36 @@
+@import '../../../../variables';
+
+.NavigationItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__LinkContent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__Link {
+        &:link,
+        &:active,
+        &:visited {
+            text-decoration: none;
+        }
+    }
+
+    &__IconContainer {
+        // background-color: rgba($color-misc-1, 0.75);
+        // margin-right: 4px;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__Icon {
+        width: 2rem;
+        height: 2rem;
+    }
+}

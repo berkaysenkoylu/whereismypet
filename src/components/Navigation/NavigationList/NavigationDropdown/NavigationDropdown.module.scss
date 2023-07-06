@@ -1,0 +1,78 @@
+@import '../../../../variables';
+
+.NavigationDropdown {
+    position: relative;
+
+    &__Toggle {
+        cursor: pointer;
+        padding: 8px 4px;
+        display: flex;
+        align-items: center;
+    }
+
+    &__Toggle:hover > &__Label {
+        color: $color-black;
+
+        &::after {
+            background-color: rgba($color-black, 0.8);
+        }
+    }
+
+    // &__Toggle:hover > &__Label::after {
+    //     background-color: ($color-misc-1, 0.8);
+    // }
+
+    &__IconContainer {
+        background-color: rgba($color-misc-1, 0.75);
+        margin-right: 0.7rem;
+        width: 3rem;
+        height: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__Icon {
+        fill: $color-chat-dark-2;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    &__Label {
+        transition: color 0.2s ease-out;
+
+        &::after {
+            content: '';
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            background-color: rgba($color-black, 0.5);
+            clip-path: polygon(85% 30%, 15% 30%, 50% 70%);
+            margin-left: 4px;
+            transition: background-color 0.2s ease-out;
+        }
+    }
+
+    &__Menu {
+        position: absolute;
+        top: 4rem;
+        background-color: $color-white;
+        min-width: 16rem;
+        list-style: none;
+        font-size: $default-font-size;
+        margin: 0 0.5rem;
+        box-shadow: 0 1rem 1rem rgba($color-black, 0.15);
+        border-radius: 0.5rem;
+        border: 1px solid rgba($color-black, 0.15);
+
+        &__Item {
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: background-color 0.2s ease-in;
+
+            &:hover {
+                background-color: $color-grey-light-0;
+            }
+        }
+    }
+}
