@@ -22,24 +22,17 @@ const Toolbar = (props: any) => {
             showName: true,
             type: "circular-dropdown",
             path: null,
-            // TODO: revisit this
             dropDownItems: [{
                 name: "Dogs",
                 icon: "warning",
-                showName: true,
-                type: "normal-button",
                 path: "/categories/dogs"
             }, {
                 name: "Cats",
                 icon: "warning",
-                showName: true,
-                type: "normal-button",
                 path: "/categories/cats"
             }, {
                 name: "Others",
                 icon: "warning",
-                showName: true,
-                type: "normal-button",
                 path: "/categories/others"
             }],
             backColor: "#ff5781",
@@ -52,8 +45,8 @@ const Toolbar = (props: any) => {
             showName: true,
             type: "normal-button",
             path: "/login",
-            iconColor: "#4b4b4b",
-            textColor: "#4b4b4b"
+            iconColor: "color-gray-dark",
+            textColor: "color-gray-dark"
         }
     ];
 

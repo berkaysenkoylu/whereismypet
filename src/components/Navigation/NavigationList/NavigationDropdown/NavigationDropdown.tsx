@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import svg from '../../../../assets/images/sprite.svg';
 import classes from './NavigationDropdown.module.scss';
-import NavigationItem from '../NavigationItem/NavigationItem';
+import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
 
 const NavigationDropdown = (props: any) => {
     const [showMenu, setShowMenu] = useState(false);
@@ -49,7 +49,9 @@ const NavigationDropdown = (props: any) => {
     const renderMenuItems = (): React.ReactElement => {
         return dropDownItems.map((item: any, index: number) => {
             // return <li key={index} className={classes.NavigationDropdown__Menu__Item}>link {index + 1}</li>
-            return <NavigationItem key={index} data={{...item, isDropDownElement: true}} />
+            return (
+                <DropdownMenuItem key={index} data={item} />
+            );
         });
     }
 

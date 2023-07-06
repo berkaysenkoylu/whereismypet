@@ -1,8 +1,15 @@
-import React from 'react'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+
+import classes from './Logo.module.scss';
 
 const Logo = () => {
     return (
-        <div>Logo</div>
+        <NavLink to="/">
+            <div className={classes.Logo}>
+                &nbsp;
+            </div>
+        </NavLink>
     );
 }
 

@@ -1,0 +1,33 @@
+@import "../../../../../variables";
+
+.DropdownMenuItem {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 0.4rem 0.6rem;
+    transition: background-color 0.2s ease-in;
+
+    &:hover {
+        background-color: rgba($color-grey-light-0, 0.5);
+    }
+
+    &:link,
+    &:visited,
+    &:focus,
+    &:active {
+        text-decoration: none;
+        color: rgba($color-black, 0.7);
+    }
+
+    &__Icon {
+        fill: rgba($color-black, 0.7);
+        height: 2rem;
+        width: 2rem;
+        margin-right: 6px;
+    }
+
+    &__Content {
+        display: flex;
+        align-items: center;
+    }
+}
