@@ -68,6 +68,15 @@
     }
 }
 
+.ButtonCustom {
+    background-color: $color-bluish;
+
+    &::before,
+    &::after {
+        background: $color-bluish-dark;
+    }
+}
+
 .ButtonSmall {
     padding: 0.5rem
 }

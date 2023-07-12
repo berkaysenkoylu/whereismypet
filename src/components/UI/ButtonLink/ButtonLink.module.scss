@@ -1,0 +1,24 @@
+@import '../../../variables';
+
+.ButtonLink {
+    cursor: pointer;
+    font-size: $small-font-size;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: $color-tertiary-0;
+    text-decoration: underline;
+    transition: color 0.2s ease-out;
+
+    &__Disabled {
+        cursor: not-allowed;
+        color: $color-gray-dark;
+    }
+}
+
+.ButtonLinkCustom {
+    color: $color-bluish;
+
+    &:hover {
+        color: $color-bluish-dark;
+    }
+}

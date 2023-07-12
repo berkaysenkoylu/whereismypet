@@ -44,7 +44,7 @@ const Toolbar = (props: any) => {
             icon: "warning",
             showName: true,
             type: "normal-button",
-            path: "/login",
+            path: "/auth",
             iconColor: "color-gray-dark",
             textColor: "color-gray-dark"
         }

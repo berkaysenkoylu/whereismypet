@@ -16,6 +16,9 @@ const Button = (props: ButtonPropsType) => {
         case 'BtnSecondary':
             classList = [classes.Button, classes.ButtonSecondary];
             break;
+        case 'BtnCustom':
+            classList = [classes.Button, classes.ButtonCustom];
+            break;
         default:
             break;
     }

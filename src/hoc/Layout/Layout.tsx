@@ -5,8 +5,7 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 const Layout = (props: any) => {
 	const testStyle = {
         maxWidth: '65%',
-        margin: '2rem auto 0 auto',
-		backgroundColor: 'orangered'
+        margin: '2rem auto 0 auto'
     };
 
 	return (

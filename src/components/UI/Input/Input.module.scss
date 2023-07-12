@@ -1,0 +1,70 @@
+@import '../../../variables';
+
+.InputContainer {
+    font-size: $default-font-size;
+    position: relative;
+    width: 100%;
+    margin-bottom: 3.5rem;
+
+    label {
+        display: block;
+        position: absolute;
+        top: -2rem;
+        left: 0;
+        z-index: -1;
+        transition: all 0.2s ease-in;
+        margin-left: 6px;
+        font-weight: 500;
+        color: rgba($color-grey-light-2, 0.85);
+    }
+
+    &__Input:placeholder-shown ~ label {
+        opacity: 0;
+        transform: translateY(1.5rem);
+    }
+
+    &__Input {
+        all: unset;
+        box-sizing: border-box;
+        display: inline-block;
+        width: 100%;
+        background-color: $color-white;
+        padding: 6px;
+        border-bottom: 1px solid $color-black;
+
+        &::placeholder {
+            font-weight: 500;
+            color: rgba($color-grey-light-2, 0.85);
+        }
+    }
+
+    &__BottomBorder {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% + 1px);//TODO revisit this
+        display: flex;
+
+        &::after, &::before {
+            content: "";
+            width: 50%;
+            height: 3px;
+            background-color: $color-bluish;
+            transition: transform 0.2s ease-in;
+        }
+
+        &::before {
+            transform-origin: right;
+            transform: scaleX(0);
+        }
+
+        &::after {
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+    }
+
+    &__Input:focus + &__BottomBorder::after, &__Input:focus + &__BottomBorder::before {
+        transform: scaleX(1);
+    }
+}

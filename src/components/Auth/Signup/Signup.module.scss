@@ -1,0 +1,23 @@
+@import '../../../variables';
+
+.Signup {
+    position: absolute;
+    top: 6rem;
+    left: 4rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(90px, 0, 0);
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out;
+
+    &__Show {
+        animation: showSignup 1s forwards;
+    }
+}
+
+@keyframes showSignup {
+    100% {
+        opacity: 1;
+        visibility: visible;
+        transform: translate3d(0, 0, 0);
+    }
+}
