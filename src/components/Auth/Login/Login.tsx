@@ -81,7 +81,7 @@ const Login = () => {
         <div className={classList.join(" ")}>
             <h2>LOGIN</h2>
 
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                 {formContent}
 
                 <div className={classes.Login__Cta}>

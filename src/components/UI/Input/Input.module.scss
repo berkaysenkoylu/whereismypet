@@ -68,3 +68,32 @@
         transform: scaleX(1);
     }
 }
+
+.ValidationError {
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    transform: translateY(0);
+    transition: all 0.2s ease-in;
+    font-size: $small-font-size;
+    color: $color-tertiary-4;
+    font-weight: 500;
+    text-decoration: underline;
+
+    &::before {
+        content: "*";
+        display: inline-block;
+    }
+}
+
+.ShowValidationError {
+    transform: translateY(-2rem);
+}
+
+.InvalidInput {
+    color: $color-tertiary-4;
+
+    &::placeholder {
+        color: rgba($color-tertiary-4, 0.85);
+    }
+}

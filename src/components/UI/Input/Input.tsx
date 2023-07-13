@@ -37,7 +37,7 @@ const Input = (props: InputPropsType) => {
         validation,
         register,
         control,
-        // validationResult,
+        validationResult,
         lastChild,
         // isPassword,
         // passwordValidationMap,
@@ -52,7 +52,7 @@ const Input = (props: InputPropsType) => {
         rules: { required: true }
     });
     const { placeholder } = elementConfig;
-    // const { message } = validationResult;
+    const { message } = validationResult;
     const { onBlur } = register(name);
 
     // TODO type tanımlaması yapılmalı
@@ -75,6 +75,16 @@ const Input = (props: InputPropsType) => {
             classes.InputContainer,
             !lastChild ? classes.NonLastInputContainer : "",
         ].join(" ")}>
+            <span
+                className={[
+                classes.ValidationError,
+                isTouched && invalid && message && message !== ""
+                    ? classes.ShowValidationError
+                    : null,
+                ].join(" ")}
+            >
+                {message}
+            </span>
 			<input
                 data-testid={testid}
                 {...field}
