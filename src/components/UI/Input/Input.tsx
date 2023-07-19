@@ -1,10 +1,10 @@
-import React from 'react';
 import { useController } from "react-hook-form";
 import type {
     ElementConfigType,
     InputValidationType,
-    ValidationResultType,
+    ValidationResultType
 } from "./types";
+import { FieldError } from "react-hook-form";
 
 import classes from './Input.module.scss';
 
@@ -14,16 +14,15 @@ interface InputPropsType {
     name: string
     elementConfig: ElementConfigType
     validation: InputValidationType
-    // TODO: type tanımlaması yapılmalı
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register: any
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     control?: any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    validationResult?: ValidationResultType | undefined | any
+    validationResult?: ValidationResultType | FieldError | Record<string, never>
     lastChild?: boolean
     isPassword?: boolean
     touched?: boolean
+    style?: React.CSSProperties
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     passwordValidationMap?: any
     focusLost?: () => void
@@ -35,10 +34,13 @@ const Input = (props: InputPropsType) => {
         elementConfig,
         name,
         validation,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         register,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         control,
         validationResult,
         lastChild,
+        style,
         // isPassword,
         // passwordValidationMap,
         focusLost
@@ -48,11 +50,13 @@ const Input = (props: InputPropsType) => {
         fieldState: { invalid, isTouched }
     } = useController({
         name,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         control,
         rules: { required: true }
     });
     const { placeholder } = elementConfig;
     const { message } = validationResult;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const { onBlur } = register(name);
 
     // TODO type tanımlaması yapılmalı
@@ -65,6 +69,7 @@ const Input = (props: InputPropsType) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onInputFocusLost = (event: any) => {
         // TODO revisit this.
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         onBlur(event);
 
         typeof focusLost === "function" && focusLost();
@@ -74,7 +79,7 @@ const Input = (props: InputPropsType) => {
 		<div className={[
             classes.InputContainer,
             !lastChild ? classes.NonLastInputContainer : "",
-        ].join(" ")}>
+        ].join(" ")} style={style}>
             <span
                 className={[
                 classes.ValidationError,
@@ -89,6 +94,7 @@ const Input = (props: InputPropsType) => {
                 data-testid={testid}
                 {...field}
                 {...elementConfig}
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 {...register(name, validation)}
                 className={[
                     classes.InputContainer__Input,

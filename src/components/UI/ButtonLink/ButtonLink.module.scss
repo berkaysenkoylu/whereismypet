@@ -15,10 +15,26 @@
     }
 }
 
+.ButtonLinkWhite {
+    color: $color-white;
+
+    &:hover {
+        color: $gray;
+    }
+}
+
 .ButtonLinkCustom {
     color: $color-bluish;
 
     &:hover {
         color: $color-bluish-dark;
     }
+}
+
+.ButtonLinkBig {
+    font-size: $default-font-size;
+}
+
+.NoUnderLine {
+    text-decoration: none;
 }

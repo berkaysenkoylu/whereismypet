@@ -9,7 +9,7 @@
     label {
         display: block;
         position: absolute;
-        top: -2rem;
+        top: -1.8rem;
         left: 0;
         z-index: -1;
         transition: all 0.2s ease-in;
@@ -20,7 +20,7 @@
 
     &__Input:placeholder-shown ~ label {
         opacity: 0;
-        transform: translateY(1.5rem);
+        transform: translateY(1.2rem);
     }
 
     &__Input {
@@ -59,6 +59,7 @@
         }
 
         &::after {
+            width: calc(50% + 1px);
             transform-origin: left;
             transform: scaleX(0);
         }

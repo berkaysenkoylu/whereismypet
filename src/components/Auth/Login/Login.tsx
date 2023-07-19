@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import classes from './Login.module.scss';
@@ -38,7 +38,7 @@ const Login = () => {
         register,
         handleSubmit,
         control,
-        formState: { errors, isValid },
+        formState: { errors/*, isValid*/ },
     } = useForm<LoginFormType>({
         defaultValues: {
             email: "",

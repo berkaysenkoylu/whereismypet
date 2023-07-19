@@ -1,25 +1,41 @@
-import React from 'react';
-
 import classes from './ButtonLink.module.scss';
 
-type LinkType = 'LinkPrimary' | 'LinkDanger' | 'LinkSecondary' | 'LinkCustom'
+type LinkType = 'LinkPrimary' | 'LinkDanger' | 'LinkWhite' | 'LinkCustom';
+type LinkSize = 'Big' | 'Medium' | 'Small';
 
 interface ButtonLinkPropsType {
     label: string
     type: LinkType
+    size?: LinkSize
+    noUnderline?: boolean
     clicked: () => void
 }
 
 const ButtonLink = (props: ButtonLinkPropsType) => {
-    const { label, type, clicked } = props;
+    const { label, noUnderline, size, type, clicked } = props;
     let classList = [classes.ButtonLink];
 
     switch(type) {
+        case 'LinkWhite':
+            classList = [...classList, classes.ButtonLinkWhite];
+            break;
         case 'LinkCustom':
-            classList = [classes.ButtonLink, classes.ButtonLinkCustom];
+            classList = [...classList, classes.ButtonLinkCustom];
             break;
         default:
             break;
+    }
+
+    switch(size) {
+        case 'Big':
+            classList = [...classList, classes.ButtonLinkBig];
+            break;
+        default:
+            break;
+    }
+
+    if (noUnderline) {
+        classList = [...classList, classes.NoUnderLine];
     }
 
     return (

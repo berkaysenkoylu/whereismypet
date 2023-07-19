@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import classes from './Authentication.module.scss';
 import Signup from '../../components/Auth/Signup/Signup';
 import Login from '../../components/Auth/Login/Login';
+import ButtonLink from '../../components/UI/ButtonLink/ButtonLink';
 
 const Authentication = () => {
     const [loginMode, setLoginMode] = useState(true);
     const [optionFormClassList, setOptionFormClassList] = useState([classes.Authentication__OptionForm]);
-    let toggled = useRef<boolean>(false);
+    const toggled = useRef<boolean>(false);
 
     useEffect(() => {
         // Should only execute when one of the toggle buttons is pressed
@@ -24,12 +25,26 @@ const Authentication = () => {
             <div className={classes.Authentication__Options}>
                 <div className={classes.Authentication__OptionText}>
                     <div className={classes.Authentication__OptionText__Unregistered}>
-                        <p>UNREGISTERED</p>
-                        <button onClick={() => onModeChangedHandler(false)}>Sign Up</button>
+                        <p>Not registered yet?</p>
+
+                        <ButtonLink
+                            noUnderline
+                            type='LinkWhite'
+                            size='Big'
+                            label='<Sign Up />'
+                            clicked={() => onModeChangedHandler(false)}
+                        />
                     </div>
                     <div className={classes.Authentication__OptionText__Registered}>
-                        <p>REGISTERED</p>
-                        <button onClick={() => onModeChangedHandler(true)}>Login</button>
+                        <p>Already registered?</p>
+
+                        <ButtonLink
+                            noUnderline
+                            type='LinkWhite'
+                            size='Big'
+                            label='<Login />'
+                            clicked={() => onModeChangedHandler(true)}
+                        />
                     </div>
                 </div>
 
