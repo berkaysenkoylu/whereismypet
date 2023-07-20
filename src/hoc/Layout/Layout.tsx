@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Layout = (props: any) => {
 	const testStyle = {
         maxWidth: '65%',

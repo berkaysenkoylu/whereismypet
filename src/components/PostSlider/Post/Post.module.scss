@@ -1,0 +1,13 @@
+@import "../../../variables";
+
+.Post {
+    display: inline-block;
+    width: 20rem;
+    height: 40rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+
+    &:not(:last-child) {
+        margin-right: 1.5rem;
+    }
+}

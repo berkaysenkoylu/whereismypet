@@ -1,0 +1,35 @@
+@import "../../variables";
+
+.SliderContainer {}
+
+.PostSliderOuter {
+    cursor: pointer;
+    position: relative;
+    height: 40rem;
+    // will-change: transform;
+    user-select: none;
+    // width: 100%;
+
+    // &::-webkit-scrollbar {
+    //     display: none;
+    // }
+
+    // -ms-overflow-style: none;  /* IE and Edge */
+    // scrollbar-width: none;  /* Firefox */
+}
+
+.PostSlider {
+    white-space: nowrap;
+    transition: transform 0.2s ease;
+    overflow-x: scroll;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.PostSliderCta {}

@@ -1,8 +1,10 @@
-import React from 'react';
+import PostSlider from "../PostSlider/PostSlider";
 
 const Home = () => {
     return (
-        <div>Home</div>
+        <>
+            <PostSlider />
+        </>
     );
 }
 
