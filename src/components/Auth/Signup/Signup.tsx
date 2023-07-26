@@ -14,15 +14,16 @@ interface SignupFormType {
     password: string;
 }
 
-// interface SignupPropsType {
-//     signupSuccess: boolean;
-//     showFeedbackModal: boolean;
-//     modalMessage: string;
-//     clearModal: () => void;
-//     signupFormSubmitted: (formData: SignupFormType) => void;
-// }
+interface SignupPropsType {
+    // signupSuccess: boolean;
+    // showFeedbackModal: boolean;
+    // modalMessage: string;
+    // clearModal: () => void;
+    // eslint-disable-next-line no-unused-vars
+    signupFormSubmitted: (formData: SignupFormType) => void;
+}
 
-const Signup = (/*props: SignupPropsType*/) => {
+const Signup = (props: SignupPropsType) => {
     const [classList, setClassList] = useState([classes.Signup]);
     const {
         register,
@@ -46,8 +47,8 @@ const Signup = (/*props: SignupPropsType*/) => {
         setClassList([classes.Signup, classes.Signup__Show]);
     }, []);
 
-    const onSubmit: SubmitHandler<SignupFormType> = (/*data*/) => {
-        // props.signupFormSubmitted(data);
+    const onSubmit: SubmitHandler<SignupFormType> = (data) => {
+        props.signupFormSubmitted(data);
     };
 
     const formContent = Object.keys(FORM_FIELDS).map(

@@ -11,6 +11,11 @@ interface LoginFormType {
     password: string;
 }
 
+interface LoginPropsType {
+    // eslint-disable-next-line no-unused-vars
+    loginFormSubmitted: (formData : LoginFormType) => void
+}
+
 const FORM_FIELDS = {
     email: {
         elementConfig: {
@@ -33,7 +38,7 @@ const FORM_FIELDS = {
     }
 };
 
-const Login = () => {
+const Login = (props: LoginPropsType) => {
     const {
         register,
         handleSubmit,
@@ -53,7 +58,7 @@ const Login = () => {
     }, []);
 
     const onSubmit: SubmitHandler<LoginFormType> = (data) => {
-        console.log(data);
+        props.loginFormSubmitted(data);
     };
 
     const formContent = Object.keys(FORM_FIELDS).map(
