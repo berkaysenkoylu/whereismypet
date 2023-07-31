@@ -1,5 +1,5 @@
 const FORM_FIELDS = {
-    firstName: {
+    firstname: {
       elementConfig: {
         type: "text",
         placeholder: "First name",
@@ -9,7 +9,7 @@ const FORM_FIELDS = {
         maxLength: { value: 16, message: "You can input max 16 characters" },
       },
     },
-    lastName: {
+    lastname: {
       elementConfig: {
         type: "text",
         placeholder: "Last name",

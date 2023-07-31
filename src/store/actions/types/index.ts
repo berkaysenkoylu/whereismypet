@@ -1,6 +1,6 @@
 export interface SignupUserDataType {
-    firstName: string
-    lastName: string
+    firstname: string
+    lastname: string
     username: string
     email: string
     password: string
@@ -16,8 +16,8 @@ interface CreatedUserType {
     status: string
     avatarUrl: string
     city: string
-    firstName: string
-    lastName: string
+    firstname: string
+    lastname: string
     username: string
     email: string
     updatedAt: string

@@ -7,14 +7,7 @@ import classes from './Signup.module.scss';
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
 import PasswordFeedback from '../PasswordFeedback/PasswordFeedback';
-
-interface SignupFormType {
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    password: string;
-}
+import { SignupUserDataType } from '../../../store/actions/types';
 
 interface SignupPropsType {
     // signupSuccess: boolean;
@@ -22,7 +15,7 @@ interface SignupPropsType {
     // modalMessage: string;
     // clearModal: () => void;
     // eslint-disable-next-line no-unused-vars
-    signupFormSubmitted: (formData: SignupFormType) => void;
+    signupFormSubmitted: (formData: SignupUserDataType) => void;
 }
 
 const Signup = (props: SignupPropsType) => {
@@ -35,10 +28,10 @@ const Signup = (props: SignupPropsType) => {
         control,
         // eslint-disable-next-line no-unused-vars
         formState: { errors, isValid/*, touchedFields*/ },
-    } = useForm<SignupFormType>({
+    } = useForm<SignupUserDataType>({
         defaultValues: {
-          firstName: "",
-          lastName: "",
+          firstname: "",
+          lastname: "",
           username: "",
           email: "",
           password: "",
@@ -51,7 +44,7 @@ const Signup = (props: SignupPropsType) => {
         setClassList([classes.Signup, classes.Signup__Show]);
     }, []);
 
-    const onSubmit: SubmitHandler<SignupFormType> = (data) => {
+    const onSubmit: SubmitHandler<SignupUserDataType> = (data) => {
         props.signupFormSubmitted(data);
     };
 

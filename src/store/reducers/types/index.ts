@@ -9,7 +9,7 @@ export interface StateType {
     userStatus: string | null
     showFeedbackModal: boolean
     successfullSignup: boolean
-    successfulLogin: boolean
+    successfullLogin: boolean
 }
 
 export interface ActionType {

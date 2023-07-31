@@ -1,0 +1,167 @@
+@import '../../variables';
+
+.ModalContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 50rem;
+    height: 30rem;
+    max-width: calc(100vw - 6rem);
+    z-index: 1200;
+    animation: scaleUp 0.2s ease-out;
+    animation-fill-mode: forwards;
+
+    &__Closed {
+        animation: scaleDown 0.2s ease-out;
+        animation-fill-mode: forwards;
+    }
+
+    &__CloseButton {
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 5px 5px 0 0;
+
+        &::before, &::After {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 2.5rem;
+            height: 4px;
+            background-color: $color-black;
+            transition: all 0.2s ease-out;
+        }
+
+        &::before {
+            transform: translateY(-50%) rotateZ(45deg);
+        }
+
+        &::after {
+            transform: translateY(-50%) rotateZ(-45deg);
+        }
+
+        &:hover::before {
+            transform: translateY(-50%) rotateZ(-45deg) scale(1.1);
+            box-shadow: $shadow-light;
+        }
+
+        &:hover::after {
+            transform: translateY(-50%) rotateZ(45deg) scale(1.1);
+            box-shadow: $shadow-light;
+        }
+
+        &:active::before {
+            transform: translateY(-48%) rotateZ(-45deg) scale(1.05);
+            box-shadow: $shadow-mild;
+        }
+
+        &:active::after {
+            transform: translateY(-48%) rotateZ(45deg) scale(1.05);
+            box-shadow: $shadow-mild;
+        }
+    }
+}
+
+.Modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: $default-font-size;
+    background-color: $color-white;
+    box-shadow: 0.5rem 1rem 1rem rgba($color-black, 0.2);
+    padding: 1rem 1.5rem;
+}
+
+.ModalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    &__Header {
+        margin-bottom: 1rem;
+
+        h2 {
+            font-size: $default-header-font-size;
+            letter-spacing: 2px;
+            text-transform: capitalize;
+            font-weight: 400;
+        }
+    }
+
+    &__Text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        &__Icon {
+            width: 10rem;
+            height: 10rem;
+            fill: $color-primary-3;
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.ModalClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem 1rem 0 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 3px;
+        height: 100%;
+        background-color: $color-black;
+        transition: all 0.2s ease-out;
+    }
+
+    &::before {
+        transform: translate(-50%, -50%) rotateZ(45deg);
+    }
+
+    &::after {
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+    }
+
+    &:hover::after,
+    &:hover::before {
+        background-color: $color-primary-4;
+    }
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes scaleDown {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+}

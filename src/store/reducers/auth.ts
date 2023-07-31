@@ -12,7 +12,7 @@ const initialState: StateType = {
     userStatus: null,
     showFeedbackModal: false,
     successfullSignup: false,
-    successfulLogin: false
+    successfullLogin: false
 };
 
 const updateObject = (oldObject: StateType, updatedProperties: Partial<StateType>): StateType => {
@@ -54,7 +54,7 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
         case actionTypes.LOGIN_SUCCESS:
             return updateObject(state, {
                 isLoading: false,
-                successfulLogin: true,
+                successfullLogin: true,
                 isAuth: true,
                 showFeedbackModal: action.showFeedbackModal,
                 responseMessage: action.responseMessage,
@@ -66,12 +66,15 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
         case actionTypes.LOGIN_FAIL:
             return updateObject(state, {
                 isLoading: false,
-                successfulLogin: false,
+                successfullLogin: false,
                 responseMessage: action.responseMessage,
                 showFeedbackModal: true
             });
         case actionTypes.CLEAR_MODAL:
             return updateObject(state, {
+                responseMessage: null,
+                successfullLogin: false,
+                successfullSignup: false,
                 showFeedbackModal: false
             });
         case actionTypes.LOGOUT:
@@ -84,7 +87,7 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 userId: null,
                 userImage: null,
                 userStatus: null,
-                successfulLogin: false
+                successfullLogin: false
             });
         default:
             break;

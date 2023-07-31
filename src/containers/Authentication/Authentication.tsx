@@ -6,6 +6,7 @@ import classes from './Authentication.module.scss';
 import Signup from '../../components/Auth/Signup/Signup';
 import Login from '../../components/Auth/Login/Login';
 import ButtonLink from '../../components/UI/ButtonLink/ButtonLink';
+import AuthFeedback from '../../components/Auth/AuthFeedback/AuthFeedback';
 import type { StateType } from '../../store/reducers/types';
 import type { LoginUserDataType, SignupUserDataType } from '../../store/actions/types';
 
@@ -16,7 +17,12 @@ interface AuthenticationPropsType {
     isAuth: boolean
     showFeedbackModal: boolean
     successfullSignup: boolean
-    successfulLogin: boolean
+    successfullLogin: boolean
+    // eslint-disable-next-line no-unused-vars
+    login: (loginFormData: LoginUserDataType) => void
+    // eslint-disable-next-line no-unused-vars
+    signup: (signupFormData: SignupUserDataType) => void
+    clearModal: () => void
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -24,9 +30,16 @@ const Authentication = (props: AuthenticationPropsType) => {
     const [loginMode, setLoginMode] = useState(true);
     const [optionFormClassList, setOptionFormClassList] = useState([classes.Authentication__OptionForm]);
     const toggled = useRef<boolean>(false);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+    const navigateTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
-    console.log(props)
-
+    useEffect(() => {
+        return () => {
+            clearTimeout(timeoutRef.current);
+            clearTimeout(navigateTimeoutRef.current);
+        }
+    }, []);
+    
     useEffect(() => {
         // Should only execute when one of the toggle buttons is pressed
         toggled.current && setOptionFormClassList([classes.Authentication__OptionForm, loginMode ? classes.Authentication__OptionForm__BounceRight : classes.Authentication__OptionForm__BounceLeft]);
@@ -38,52 +51,68 @@ const Authentication = (props: AuthenticationPropsType) => {
     }
 
     const signupFormSubmittedHandler = (signupFormData: SignupUserDataType) => {
-        console.log("DISPATCH SIGNUP ACTION")
-        console.log(signupFormData)
+        props.signup(signupFormData);
     }
 
     const loginFormSubmittedHandler = (loginFormData: LoginUserDataType) => {
-        console.log("DISPATCH LOGIN ACTION")
-        console.log(loginFormData)
+        props.login(loginFormData);
+    }
+
+    const onCloseFeedbackModalHandler = () => {
+        timeoutRef.current = setTimeout(() => {
+            props.clearModal();
+
+            navigateTimeoutRef.current = setTimeout(() => {
+                console.log("NAVIGATE");
+            }, 100);
+        }, 220);
     }
 
     return (
-        <section className={classes.Authentication}>
-            <div className={classes.Authentication__Options}>
-                <div className={classes.Authentication__OptionText}>
-                    <div className={classes.Authentication__OptionText__Unregistered}>
-                        <p>Not registered yet?</p>
+        <>
+            <AuthFeedback
+                showModal={props.showFeedbackModal}
+                isSuccess={props.successfullLogin || props.successfullSignup}
+                closeFeedback={onCloseFeedbackModalHandler}
+                message={props.responseMessage}
+            />
+            <section className={classes.Authentication}>
+                <div className={classes.Authentication__Options}>
+                    <div className={classes.Authentication__OptionText}>
+                        <div className={classes.Authentication__OptionText__Unregistered}>
+                            <p>Not registered yet?</p>
 
-                        <ButtonLink
-                            noUnderline
-                            type='LinkWhite'
-                            size='Big'
-                            label='<Sign Up />'
-                            clicked={() => onModeChangedHandler(false)}
-                        />
+                            <ButtonLink
+                                noUnderline
+                                type='LinkWhite'
+                                size='Big'
+                                label='<Sign Up />'
+                                clicked={() => onModeChangedHandler(false)}
+                            />
+                        </div>
+                        <div className={classes.Authentication__OptionText__Registered}>
+                            <p>Already registered?</p>
+
+                            <ButtonLink
+                                noUnderline
+                                type='LinkWhite'
+                                size='Big'
+                                label='<Login />'
+                                clicked={() => onModeChangedHandler(true)}
+                            />
+                        </div>
                     </div>
-                    <div className={classes.Authentication__OptionText__Registered}>
-                        <p>Already registered?</p>
 
-                        <ButtonLink
-                            noUnderline
-                            type='LinkWhite'
-                            size='Big'
-                            label='<Login />'
-                            clicked={() => onModeChangedHandler(true)}
-                        />
+                    <div className={optionFormClassList.join(" ")}>
+                        {loginMode ?
+                            <Login
+                                loginFormSubmitted={loginFormSubmittedHandler} />
+                                :
+                            <Signup signupFormSubmitted={signupFormSubmittedHandler} />}
                     </div>
                 </div>
-
-                <div className={optionFormClassList.join(" ")}>
-                    {loginMode ?
-                        <Login
-                            loginFormSubmitted={loginFormSubmittedHandler} />
-                            :
-                        <Signup signupFormSubmitted={signupFormSubmittedHandler} />}
-                </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
 
@@ -95,7 +124,7 @@ const mapStateToProps = (state: StateType) => {
         isAuth: state.isAuth,
         showFeedbackModal: state.showFeedbackModal,
         successfullSignup: state.successfullSignup,
-        successfulLogin: state.successfulLogin
+        successfullLogin: state.successfullLogin
     }
 }
 
