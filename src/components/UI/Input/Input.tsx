@@ -1,10 +1,10 @@
-import { useController } from "react-hook-form";
+import { useController } from 'react-hook-form';
 import type {
     ElementConfigType,
     InputValidationType,
     ValidationResultType
-} from "./types";
-import { FieldError } from "react-hook-form";
+} from './types';
+import { FieldError } from 'react-hook-form';
 
 import classes from './Input.module.scss';
 
@@ -20,11 +20,11 @@ interface InputPropsType {
     control?: any
     validationResult?: ValidationResultType | FieldError | Record<string, never>
     lastChild?: boolean
-    isPassword?: boolean
     touched?: boolean
     style?: React.CSSProperties
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     passwordValidationMap?: any
+    onFocus?: () => void
     focusLost?: () => void
 }
 
@@ -41,8 +41,7 @@ const Input = (props: InputPropsType) => {
         validationResult,
         lastChild,
         style,
-        // isPassword,
-        // passwordValidationMap,
+        onFocus,
         focusLost
     } = props;
     const {
@@ -59,10 +58,8 @@ const Input = (props: InputPropsType) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     const { onBlur } = register(name);
 
-    // TODO type tanımlaması yapılmalı
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onInputFocused = (event: any) => {
-        console.log(event);
+    const onInputFocused = () => {
+        typeof onFocus === "function" && onFocus();
     };
 
     // TODO type tanımlaması yapılmalı
@@ -71,7 +68,7 @@ const Input = (props: InputPropsType) => {
         // TODO revisit this.
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         onBlur(event);
-
+      
         typeof focusLost === "function" && focusLost();
     };
 

@@ -43,7 +43,7 @@ const Login = (props: LoginPropsType) => {
         register,
         handleSubmit,
         control,
-        formState: { errors/*, isValid*/ },
+        formState: { errors, isValid },
     } = useForm<LoginFormType>({
         defaultValues: {
             email: "",
@@ -60,6 +60,8 @@ const Login = (props: LoginPropsType) => {
     const onSubmit: SubmitHandler<LoginFormType> = (data) => {
         props.loginFormSubmitted(data);
     };
+
+    console.log(isValid)
 
     const formContent = Object.keys(FORM_FIELDS).map(
         (formField: string, index: number) => {
@@ -100,6 +102,7 @@ const Login = (props: LoginPropsType) => {
                         btnType='BtnCustom'
                         btnSize='BtnSmall'
                         label='Login'
+                        disabled={!isValid}
                     />
                 </div>
             </form>

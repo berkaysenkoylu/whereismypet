@@ -1,9 +1,9 @@
-import React from 'react';
-
 import classes from './Toolbar.module.scss';
 import Logo from '../../Logo/Logo';
 import NavigationList from '../NavigationList/NavigationList';
 
+// TODO type tanımlaması yapılacak
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Toolbar = (props: any) => {
     // TODO: revisit this
     const navigationList = [
@@ -41,7 +41,7 @@ const Toolbar = (props: any) => {
         {
             name: "Login",
             // TODO change this
-            icon: "warning",
+            icon: "enter",
             showName: true,
             type: "normal-button",
             path: "/auth",

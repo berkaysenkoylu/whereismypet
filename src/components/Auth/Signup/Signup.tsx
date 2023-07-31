@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 
+import usePasswordValidation from '../../../hooks/usePasswordValidation';
 import FORM_FIELDS from './SignupFields';
 import classes from './Signup.module.scss';
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
+import PasswordFeedback from '../PasswordFeedback/PasswordFeedback';
 
 interface SignupFormType {
     firstName: string;
@@ -25,13 +27,14 @@ interface SignupPropsType {
 
 const Signup = (props: SignupPropsType) => {
     const [classList, setClassList] = useState([classes.Signup]);
+    const [isPasswordFeedbackVisible, setIsPasswordFeedbackVisible] = useState(false);
     const {
         register,
-        /*watch,*/
+        watch,
         handleSubmit,
         control,
         // eslint-disable-next-line no-unused-vars
-        formState: { errors, /*isValid, touchedFields*/ },
+        formState: { errors, isValid/*, touchedFields*/ },
     } = useForm<SignupFormType>({
         defaultValues: {
           firstName: "",
@@ -42,6 +45,7 @@ const Signup = (props: SignupPropsType) => {
         },
         mode: "onChange"
     });
+    const [validLength, hasNumber, upperCase, specialChar] = usePasswordValidation(watch("password"));
 
     useEffect(() => {
         setClassList([classes.Signup, classes.Signup__Show]);
@@ -50,6 +54,14 @@ const Signup = (props: SignupPropsType) => {
     const onSubmit: SubmitHandler<SignupFormType> = (data) => {
         props.signupFormSubmitted(data);
     };
+
+    const onPasswordFeedbackToggled = () => {
+        if (isPasswordFeedbackVisible) {
+            setIsPasswordFeedbackVisible(prevState => !prevState);
+        } else {
+            setIsPasswordFeedbackVisible(prevState => !prevState);
+        }
+    }
 
     const formContent = Object.keys(FORM_FIELDS).map(
         (formField: string, index: number) => {
@@ -68,6 +80,8 @@ const Signup = (props: SignupPropsType) => {
                 validationResult={errors[formField as keyof typeof FORM_FIELDS] || {}}
                 lastChild={index === Object.keys(FORM_FIELDS).length - 1}
                 style={{ marginBottom: "2rem" }}
+                onFocus={formField === "password" ? onPasswordFeedbackToggled : () => {}}
+                focusLost={formField === "password" ? onPasswordFeedbackToggled : () => {}}
             />
           );
         }
@@ -85,9 +99,14 @@ const Signup = (props: SignupPropsType) => {
                         btnType='BtnCustom'
                         btnSize='BtnSmall'
                         label='Sign up'
+                        disabled={!isValid}
                     />
                 </div>
             </form>
+
+            <PasswordFeedback
+                validation={{ validLength, hasNumber, upperCase, specialChar }}
+                visible={isPasswordFeedbackVisible} />
         </div>
     );
 }
