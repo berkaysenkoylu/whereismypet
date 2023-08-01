@@ -67,14 +67,13 @@ export const authCheckState = () => {
                 const userId = localStorage.getItem('userId');
 
                 const response = await axiosAuth.get(`/${userId}`);
-                const userData = response.data.userData;
+                const userData = response.data.user;
 
                 const autoLoginData = {
                     responseMessage: "",
                     username: userData.username,
                     userId: userData.id,
                     userImage: userData.avatarUrl,
-                    userStatus: userData.status,
                     showFeedbackModal: false,
                     token
                 };
@@ -96,7 +95,7 @@ export const loginStart = () => {
 }
 
 export const loginSuccess = (data: SuccessfulLoginResponseType) => {
-    const { responseMessage, token, username, userId, userImage, userStatus, showFeedbackModal } = data;
+    const { responseMessage, token, username, userId, userImage, showFeedbackModal } = data;
 
     return {
         type: actionTypes.LOGIN_SUCCESS,
@@ -105,7 +104,6 @@ export const loginSuccess = (data: SuccessfulLoginResponseType) => {
         username,
         userId,
         userImage,
-        userStatus,
         showFeedbackModal
     };
 };

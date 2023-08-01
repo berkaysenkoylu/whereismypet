@@ -9,7 +9,6 @@ const initialState: StateType = {
     username: null,
     userId: null,
     userImage: null,
-    userStatus: null,
     showFeedbackModal: false,
     successfullSignup: false,
     successfullLogin: false
@@ -60,8 +59,7 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 responseMessage: action.responseMessage,
                 token: action.token,
                 username: action.username,
-                userImage: action.userImage,
-                userStatus: action.userStatus
+                userImage: action.userImage
             });
         case actionTypes.LOGIN_FAIL:
             return updateObject(state, {
@@ -86,7 +84,6 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 username: null,
                 userId: null,
                 userImage: null,
-                userStatus: null,
                 successfullLogin: false
             });
         default:

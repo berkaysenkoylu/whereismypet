@@ -19,15 +19,16 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     eqeqeq: 1,
-    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    'no-unused-vars': ['error', { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false }],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
     '@typescript-eslint/no-non-null-assertion': 'off',
-    "@typescript-eslint/no-misused-promises": [
-        "error",
-        {"checksVoidReturn": {"attributes": false}}
+    'react-refresh/only-export-components': 'off',
+    '@typescript-eslint/no-misused-promises': [
+        'error',
+        {'checksVoidReturn': {'attributes': false}}
     ]
   },
 }

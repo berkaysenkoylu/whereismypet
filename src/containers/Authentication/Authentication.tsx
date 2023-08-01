@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { connect, ConnectedComponent } from 'react-redux';
+import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import * as actions from '../../store/actions/index';
 import classes from './Authentication.module.scss';
@@ -25,10 +26,10 @@ interface AuthenticationPropsType {
     clearModal: () => void
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 const Authentication = (props: AuthenticationPropsType) => {
     const [loginMode, setLoginMode] = useState(true);
     const [optionFormClassList, setOptionFormClassList] = useState([classes.Authentication__OptionForm]);
+    const navigate = useNavigate();
     const toggled = useRef<boolean>(false);
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
     const navigateTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -58,13 +59,13 @@ const Authentication = (props: AuthenticationPropsType) => {
         props.login(loginFormData);
     }
 
-    const onCloseFeedbackModalHandler = () => {
+    const onCloseFeedbackModalHandler = (path: string) => {
         timeoutRef.current = setTimeout(() => {
             props.clearModal();
 
             navigateTimeoutRef.current = setTimeout(() => {
-                console.log("NAVIGATE");
-            }, 100);
+                navigate(path);
+            }, 200);
         }, 220);
     }
 
@@ -73,7 +74,7 @@ const Authentication = (props: AuthenticationPropsType) => {
             <AuthFeedback
                 showModal={props.showFeedbackModal}
                 isSuccess={props.successfullLogin || props.successfullSignup}
-                closeFeedback={onCloseFeedbackModalHandler}
+                closeFeedback={() => onCloseFeedbackModalHandler(props.successfullLogin ? '/' : '/login')}
                 message={props.responseMessage}
             />
             <section className={classes.Authentication}>
@@ -137,7 +138,4 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Authentication) as ConnectedComponent<
-    typeof Authentication,
-    Partial<AuthenticationPropsType>
->;
+export default connect(mapStateToProps, mapDispatchToProps)(Authentication);

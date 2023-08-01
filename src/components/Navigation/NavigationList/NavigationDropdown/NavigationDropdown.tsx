@@ -4,14 +4,17 @@ import svg from '../../../../assets/images/sprite.svg';
 import classes from './NavigationDropdown.module.scss';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
 
+// TODO type tanımlamaları yapılacak
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const NavigationDropdown = (props: any) => {
     const [showMenu, setShowMenu] = useState(false);
     const { data } = props;
-    const { name, icon, showName, type, dropDownItems } = data;
+    const { name, icon, isAccount, showName, type, dropDownItems } = data;
 
-    let menuRef = useRef<HTMLUListElement>(null);
-    let toggleRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLUListElement>(null);
+    const toggleRef = useRef<HTMLDivElement>(null);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleClickOutside = (event: any) => {
         if((toggleRef.current && toggleRef.current.contains(event.target))) {
             return;
@@ -46,7 +49,18 @@ const NavigationDropdown = (props: any) => {
         );
     }
 
+    const renderAccountImage = () => {
+        return (
+            <div className={classes.NavigationDropdown__AccImgContainer}>
+                <figure className={classes.NavigationDropdown__AccImgContainer__Image}>
+                    <div className={classes.NavigationDropdown__AccImgContainer__Image__Item} />
+                </figure>
+            </div>
+        );
+    }
+
     const renderMenuItems = (): React.ReactElement => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return dropDownItems.map((item: any, index: number) => {
             // return <li key={index} className={classes.NavigationDropdown__Menu__Item}>link {index + 1}</li>
             return (
@@ -58,11 +72,11 @@ const NavigationDropdown = (props: any) => {
     return (
         <div className={classes.NavigationDropdown}>
             <div className={classes.NavigationDropdown__Toggle} ref={toggleRef} onClick={onNavigationDropdownToggleHandler}>
-                {renderIcon()}
+                {!isAccount ? renderIcon() : renderAccountImage()}
                 {showName ? <span className={classes.NavigationDropdown__Label}>{name}</span> : null}
             </div>
 
-            {showMenu ? <ul className={classes.NavigationDropdown__Menu} ref={menuRef}>
+            {showMenu ? <ul className={classes.NavigationDropdown__Menu} style={isAccount ? { top: '5rem' } : {}} ref={menuRef}>
                 {renderMenuItems()}
             </ul> : null}
         </div>

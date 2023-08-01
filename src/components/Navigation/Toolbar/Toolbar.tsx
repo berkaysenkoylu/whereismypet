@@ -5,6 +5,7 @@ import NavigationList from '../NavigationList/NavigationList';
 // TODO type tanımlaması yapılacak
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Toolbar = (props: any) => {
+    const { userData } = props;
     // TODO: revisit this
     const navigationList = [
         {
@@ -38,17 +39,34 @@ const Toolbar = (props: any) => {
             backColor: "#ff5781",
             iconColor: "#8f1e3e"
         },
-        {
+        !props.isAuth ? {
             name: "Login",
-            // TODO change this
             icon: "enter",
             showName: true,
             type: "normal-button",
             path: "/auth",
             iconColor: "color-gray-dark",
             textColor: "color-gray-dark"
+        } : {
+            name: `Hi, ${userData.username}!`,
+            icon: null,
+            showName: true,
+            isAccount: true,
+            avatarPath: userData.userImage,
+            type: "circular-dropdown",
+            path: null,
+            dropDownItems: [{
+                name: "Settings",
+                // TODO change this
+                icon: "warning",
+                path: "/account"
+            }, {
+                name: "Logout",
+                icon: "exit",
+                path: "/logout"
+            }]
         }
-    ];
+    ].filter(Boolean);
 
     return (
         <nav className={classes.ToolbarWrapper}>
@@ -61,6 +79,8 @@ const Toolbar = (props: any) => {
                         status={props.userStatus}
                         navigationList={navigationList}
                     />
+
+
                 </div>
             </div>
         </nav>

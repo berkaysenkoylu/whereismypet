@@ -35,6 +35,5 @@ export interface SuccessfulLoginResponseType {
     username: string
     userId: string
     userImage: string
-    userStatus: string
     showFeedbackModal: boolean
 }

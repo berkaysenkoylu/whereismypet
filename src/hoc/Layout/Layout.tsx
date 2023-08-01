@@ -1,9 +1,12 @@
-import { Fragment } from 'react'
+import { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
+import { StateType } from '../../store/reducers/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Layout = (props: any) => {
+    const { username, userImage, isAuthenticated } = props;
 	const testStyle = {
         maxWidth: '65%',
         margin: '2rem auto 0 auto'
@@ -11,7 +14,7 @@ const Layout = (props: any) => {
 
 	return (
 		<Fragment>
-			<Toolbar isAuth={props.isAuthenticated} userStatus={props.userStatus} />
+			<Toolbar isAuth={isAuthenticated} userData={{ username, userImage }} />
 
 			<div style={testStyle}>
 				{props.children}
@@ -20,4 +23,12 @@ const Layout = (props: any) => {
 	);
 }
 
-export default Layout
+const mapStateToProps = (state: StateType) => {
+    return {
+        username: state.username,
+        userImage: state.userImage,
+        isAuthenticated: state.isAuth
+    }
+}
+
+export default connect(mapStateToProps)(Layout);

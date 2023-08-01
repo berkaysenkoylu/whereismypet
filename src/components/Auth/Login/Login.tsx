@@ -61,8 +61,6 @@ const Login = (props: LoginPropsType) => {
         props.loginFormSubmitted(data);
     };
 
-    console.log(isValid)
-
     const formContent = Object.keys(FORM_FIELDS).map(
         (formField: string, index: number) => {
           const { elementConfig, validation } =

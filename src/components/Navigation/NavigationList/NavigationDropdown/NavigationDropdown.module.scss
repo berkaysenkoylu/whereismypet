@@ -32,6 +32,33 @@
         align-items: center;
     }
 
+    &__AccImgContainer {
+        // background-color: orangered;
+        margin-right: 0.7rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__Image {
+            width: 4rem;
+            height: 4rem;
+            clip-path: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%);
+
+            &__Item {
+                height: 100%;
+                background-image: url(../../../../assets/images/avatar-default.png);
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                backface-visibility: hidden;
+                transition: all 0.5s;
+                border: 1px rgba($gray, 0.6) solid;
+                border-radius: 50%;
+            }
+        }
+    }
+
     &__Icon {
         fill: $color-chat-dark-2;
         width: 2rem;

@@ -6,7 +6,6 @@ export interface StateType {
     username: string | null
     userId: string | null
     userImage: string | null
-    userStatus: string | null
     showFeedbackModal: boolean
     successfullSignup: boolean
     successfullLogin: boolean
