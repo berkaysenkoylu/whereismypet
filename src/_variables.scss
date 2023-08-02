@@ -102,3 +102,8 @@ $bp-large: 62.5em; // 1000px / 16px = 62.5em
 $bp-medium: 50em; // 800px / 16px = 50em
 $bp-small: 37.5em; // 600px / 16px = 37.5em
 $bp-xsmall: 28.125em; // 450px / 16px = 28.125em
+
+@mixin borderStyle {
+    border: 1px $gray solid;
+    border-radius: 6px;
+}

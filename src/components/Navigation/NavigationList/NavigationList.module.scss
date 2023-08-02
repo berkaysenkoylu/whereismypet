@@ -3,6 +3,7 @@
 .NavigationList {
     list-style: none;
     display: flex;
+    align-items: center;
     
     & > li:not(:last-child), & > div:not(:last-child) {
         margin-right: 1rem;

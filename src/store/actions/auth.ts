@@ -22,12 +22,6 @@ export const signupFail = (responseMessage: string) => {
     };
 };
 
-export const signupRedirect = () => {
-    return {
-        type: actionTypes.SIGNUP_REDIRECT
-    };
-};
-
 export const signup = (userData: SignupUserDataType) => {
     // TODO type tanımlaması yapılmalı
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,0 +1,15 @@
+@import '../../../variables';
+
+.AccountSettings {
+    display: flex;
+    align-items: flex-start;
+    margin: 5rem 0;
+
+    &__Content {
+        @include borderStyle;
+        flex: 1 1 auto;
+        padding: 1.25rem;
+        margin-left: 1rem;
+    }
+}
+

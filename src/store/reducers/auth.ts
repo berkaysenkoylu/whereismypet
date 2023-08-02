@@ -2,7 +2,7 @@ import type { StateType, ActionType } from "./types";
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState: StateType = {
-    isLoading: false,
+    isLoading: true,
     responseMessage: null,
     token: null,
     isAuth: false,

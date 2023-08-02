@@ -1,0 +1,9 @@
+@import '../../../../variables';
+
+.SettingsMenu {
+    @include borderStyle;
+    padding: 1.25rem;
+    list-style: none;
+    width: 22rem;
+    margin-right: 1rem;
+}
