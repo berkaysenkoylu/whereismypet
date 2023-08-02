@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Outlet } from 'react-router-dom';
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import { StateType } from '../../store/reducers/types';
@@ -17,7 +18,7 @@ const Layout = (props: any) => {
 			<Toolbar isAuth={isAuthenticated} userData={{ username, userImage }} />
 
 			<div style={testStyle}>
-				{props.children}
+				<Outlet />
 			</div>
 		</Fragment>
 	);

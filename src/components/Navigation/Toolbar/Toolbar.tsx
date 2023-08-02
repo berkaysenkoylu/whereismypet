@@ -79,8 +79,6 @@ const Toolbar = (props: any) => {
                         status={props.userStatus}
                         navigationList={navigationList}
                     />
-
-
                 </div>
             </div>
         </nav>

@@ -8,7 +8,7 @@ import Signup from '../../components/Auth/Signup/Signup';
 import Login from '../../components/Auth/Login/Login';
 import ButtonLink from '../../components/UI/ButtonLink/ButtonLink';
 import AuthFeedback from '../../components/Auth/AuthFeedback/AuthFeedback';
-import type { StateType } from '../../store/reducers/types';
+import type { StateType } from '../../store/reducers/types/index';
 import type { LoginUserDataType, SignupUserDataType } from '../../store/actions/types';
 
 interface AuthenticationPropsType {

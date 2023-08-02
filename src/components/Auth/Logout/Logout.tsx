@@ -1,14 +1,13 @@
 import { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import * as actions from '../../../store/actions/index';
 import AuthFeedback from "../AuthFeedback/AuthFeedback";
-import { StateType } from "../../../store/reducers/types";
 
 const Logout = () => {
     const [showModal, setShowModal] = useState(true);
-    const isAuth = useSelector<StateType>(state => state.isAuth);
+    // const isAuth = useSelector<StateType>(state => state.isAuth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -33,10 +32,6 @@ const Logout = () => {
                 navigate('/');
             }, 200);
         }, 220);
-    }
-
-    if (!isAuth) {
-        return <Navigate to='/' />
     }
 
     return (

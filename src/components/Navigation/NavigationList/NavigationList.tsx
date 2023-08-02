@@ -21,7 +21,9 @@ const NavigationList = (props: any) => {
     });
 
 	return (
-		<ul className={classes.NavigationList}>{content}</ul>
+        <ul className={classes.NavigationList}>
+            {content}
+        </ul>
 	);
 }
 

@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from './store/actions/index';
+
+import { checkAuthLoader, checkNotAuthLoader } from './utils/auth';
 
 import Layout from './hoc/Layout/Layout';
 import Home from './components/Home/Home';
 import Authentication from './containers/Authentication/Authentication';
 import Logout from './components/Auth/Logout/Logout';
-import { StateType } from './store/reducers/types';
 import AccountSettings from './components/Auth/AccountSettings/AccountSettings';
+import type { StateType } from './store/reducers/types';
 
 interface AppPropsType {
     isAuth: boolean
@@ -17,25 +19,28 @@ interface AppPropsType {
     authCheckState: () => void
 }
 
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Layout />,
+        id: 'root',
+        children: [
+            { index: true, element: <Home /> },
+            { path: '/auth', element: <Authentication />, loader: checkNotAuthLoader },
+            { path: '/logout', element: <Logout />, loader: checkAuthLoader },
+            { path: '/account', element: <AccountSettings />, loader: checkAuthLoader }
+        ]
+    }
+]);
+
 const App = (props: AppPropsType) => {
     useEffect(() => {
         props.authCheckState();
-    }, [props]);
+    }, []);
 
-    const routes = (
-        <Routes>
-            {props.isAuth ? <Route path='/account' element={<AccountSettings />} /> : null}
-            <Route path='/logout' element={<Logout />} />
-            <Route path='/auth/*' element={<Authentication />} />
-            <Route path='/' element={<Home />} />
-        </Routes>
-    )
-
-	const content = (
-		<Layout>{!props.isLoading ? routes : null}</Layout>
-	);
-
-	return content;
+	return (
+        <RouterProvider router={router} />
+    );
 }
 
 const mapStateToProps = (state: StateType) => {
