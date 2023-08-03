@@ -66,6 +66,9 @@ export const authCheckState = () => {
                 const autoLoginData = {
                     responseMessage: "",
                     username: userData.username,
+                    firstname: userData.firstname,
+                    lastname: userData.lastname,
+                    email: userData.email,
                     userId: userData.id,
                     userImage: userData.avatarUrl,
                     showFeedbackModal: false,
@@ -89,12 +92,15 @@ export const loginStart = () => {
 }
 
 export const loginSuccess = (data: SuccessfulLoginResponseType) => {
-    const { responseMessage, token, username, userId, userImage, showFeedbackModal } = data;
+    const { responseMessage, token, firstname, lastname, email, username, userId, userImage, showFeedbackModal } = data;
 
     return {
         type: actionTypes.LOGIN_SUCCESS,
         responseMessage,
         token,
+        firstname,
+        lastname,
+        email,
         username,
         userId,
         userImage,
@@ -129,6 +135,9 @@ export const login = (loginFormData: LoginUserDataType) => {
                 responseMessage: responseData.message,
                 username: userData.username,
                 userId: userData.id,
+                firstname: userData.firstname,
+                lastname: userData.lastname,
+                email: userData.email,
                 userImage: userData.avatarUrl,
                 userStatus: userData.status,
                 showFeedbackModal: true,

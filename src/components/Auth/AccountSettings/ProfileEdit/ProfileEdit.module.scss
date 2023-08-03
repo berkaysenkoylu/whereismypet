@@ -1,0 +1,15 @@
+@import '../../../../variables';
+
+.ProfileEdit {
+    h2 {
+        font-size: $small-header-font-size;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        text-align: center;
+    }
+
+    form {
+        width: 70%;
+        margin: 4rem auto;
+    }
+}

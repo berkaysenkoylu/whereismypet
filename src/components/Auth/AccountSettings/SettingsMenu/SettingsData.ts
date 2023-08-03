@@ -1,22 +1,22 @@
 export const settingsOptions = [
     {
         id: 1,
-        name: "Profil bilgileri",
-        icon: "checkmark"
+        name: "Profile data",
+        icon: "contact_mail"
     },
     {
         id: 2,
         name: "Avatar",
-        icon: "checkmark"
+        icon: "add_a_photo"
     },
     {
         id: 3,
-        name: "Güvenlik",
-        icon: "checkmark"
+        name: "Security",
+        icon: "shield"
     },
     {
         id: 4,
-        name: "Hesap sil",
+        name: "Delete account",
         icon: "cross"
     }
 ]

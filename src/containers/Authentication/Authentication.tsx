@@ -59,13 +59,19 @@ const Authentication = (props: AuthenticationPropsType) => {
         props.login(loginFormData);
     }
 
-    const onCloseFeedbackModalHandler = (path: string) => {
+    const onCloseFeedbackModalHandler = (path: string | null) => {
         timeoutRef.current = setTimeout(() => {
             props.clearModal();
 
-            navigateTimeoutRef.current = setTimeout(() => {
-                navigate(path);
-            }, 200);
+            if (props.successfullSignup) {
+                setLoginMode(true);
+            }
+
+            if (path !== null) {
+                navigateTimeoutRef.current = setTimeout(() => {
+                    navigate(path);
+                }, 200);
+            }
         }, 220);
     }
 
@@ -74,7 +80,7 @@ const Authentication = (props: AuthenticationPropsType) => {
             <AuthFeedback
                 showModal={props.showFeedbackModal}
                 isSuccess={props.successfullLogin || props.successfullSignup}
-                closeFeedback={() => onCloseFeedbackModalHandler(props.successfullLogin ? '/' : '/login')}
+                closeFeedback={() => onCloseFeedbackModalHandler(props.successfullLogin ? '/' : null)}
                 message={props.responseMessage}
             />
             <section className={classes.Authentication}>

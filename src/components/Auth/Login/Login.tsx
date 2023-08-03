@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from 'react-hook-form';
 
 import classes from './Login.module.scss';
 import Input from '../../UI/Input/Input';

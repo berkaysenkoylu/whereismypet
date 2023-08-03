@@ -57,8 +57,7 @@ const Toolbar = (props: any) => {
             path: null,
             dropDownItems: [{
                 name: "Settings",
-                // TODO change this
-                icon: "warning",
+                icon: "settings",
                 path: "/account"
             }, {
                 name: "Logout",

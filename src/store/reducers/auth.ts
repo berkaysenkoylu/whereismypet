@@ -6,6 +6,9 @@ const initialState: StateType = {
     responseMessage: null,
     token: null,
     isAuth: false,
+    firstname: null,
+    lastname: null,
+    email: null,
     username: null,
     userId: null,
     userImage: null,
@@ -57,8 +60,12 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 isAuth: true,
                 showFeedbackModal: action.showFeedbackModal,
                 responseMessage: action.responseMessage,
+                userId: action.userId,
                 token: action.token,
                 username: action.username,
+                firstname: action.firstname,
+                lastname: action.lastname,
+                email: action.email,
                 userImage: action.userImage
             });
         case actionTypes.LOGIN_FAIL:
@@ -82,6 +89,9 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 token: null,
                 isAuth: false,
                 username: null,
+                firstname: null,
+                lastname: null,
+                email: null,
                 userId: null,
                 userImage: null,
                 successfullLogin: false
