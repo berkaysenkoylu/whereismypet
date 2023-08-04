@@ -3,7 +3,7 @@ type ButtonSizeType = 'BtnSmall' | 'BtnMedium' | 'BtnBig'
 
 export interface ButtonPropsType {
 	btnType: ButtonType
-    label: String
+    label: string
 	btnSize?: ButtonSizeType
 	disabled?: boolean
 	clicked?: () => void

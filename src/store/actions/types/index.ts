@@ -11,6 +11,25 @@ export interface LoginUserDataType {
     password: string
 }
 
+export interface ProfileEditFormDataType {
+    firstname?: string
+    lastname?: string
+    username?: string
+    password?: string
+    email?: string
+    avatar?: File
+}
+
+export interface ProfileEditSuccessDataType {
+    firstname: string
+    lastname: string
+    username: string
+    email: string
+    userImage: string
+    showFeedbackModal: boolean
+    responseMessage: string
+}
+
 interface CreatedUserType {
     id: string
     status: string

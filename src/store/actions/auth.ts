@@ -1,6 +1,13 @@
 import * as actionTypes from './actionTypes';
 import axiosAuth from '../../axiosUtility/axios-auth';
-import type { SignupUserDataType, CreatedUserResponseType, LoginUserDataType, SuccessfulLoginResponseType } from './types';
+import type {
+    SignupUserDataType,
+    CreatedUserResponseType,
+    LoginUserDataType,
+    SuccessfulLoginResponseType,
+    ProfileEditFormDataType,
+    ProfileEditSuccessDataType
+} from './types';
 
 export const signupStart = () => {
     return {
@@ -149,7 +156,7 @@ export const login = (loginFormData: LoginUserDataType) => {
             dispatch(authTimeout(+responseData.expiresIn));
         }).catch(error => {
             dispatch(loginFail(error.response.data.message));
-        })
+        });
     }
 }
 
@@ -168,3 +175,72 @@ export const clearModal = () => {
         type: actionTypes.CLEAR_MODAL
     };
 };
+
+const profileEditStart = () => {
+    return {
+        type: actionTypes.PROFILE_EDIT_START
+    };
+}
+
+const profileEditSuccess = (profileEditData: ProfileEditSuccessDataType) => {
+    const {
+        responseMessage,
+        firstname,
+        lastname,
+        username,
+        email,
+        userImage,
+        showFeedbackModal
+    } = profileEditData;
+
+    return {
+        type: actionTypes.PROFILE_EDIT_SUCCESS,
+        responseMessage,
+        firstname,
+        lastname,
+        email,
+        username,
+        userImage,
+        showFeedbackModal
+    };
+}
+
+const profileEditFail = (error: string) => {
+    return {
+        type: actionTypes.PROFILE_EDIT_FAIL,
+        responseMessage: error
+    };
+}
+
+export const profileEdit = (userId: string | null, profileEditFormData: ProfileEditFormDataType) => {
+    // TODO type tanımlaması yapılmalı
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (dispatch: any) => {
+        dispatch(profileEditStart());
+
+        const token = localStorage.getItem("token");
+
+        axiosAuth.put(`/${userId}`, profileEditFormData, {
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(response => {
+            const responseData = response.data;
+            const { newUserData } = responseData;
+
+            const successfullProfileEdit = {
+                showFeedbackModal: true,
+                responseMessage: responseData.message,
+                firstname: newUserData.firstname,
+                lastname: newUserData.lastname,
+                username: newUserData.username,
+                email: newUserData.email,
+                userImage: newUserData.avatarUrl
+            };
+
+            dispatch(profileEditSuccess(successfullProfileEdit));
+        }).catch(error => {
+            dispatch(profileEditFail(error.response.data.message));
+        });
+    }
+}

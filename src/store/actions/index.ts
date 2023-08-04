@@ -3,5 +3,6 @@ export {
     login,
     logout,
     authCheckState,
-    clearModal
+    clearModal,
+    profileEdit
 } from './auth';

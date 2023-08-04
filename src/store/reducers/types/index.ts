@@ -12,6 +12,7 @@ export interface StateType {
     showFeedbackModal: boolean
     successfullSignup: boolean
     successfullLogin: boolean
+    isError: boolean
 }
 
 export interface ActionType {

@@ -1,20 +1,23 @@
-import { useMemo, useEffect } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import classes from './ProfileEdit.module.scss';
 import FORM_FIELDS from './ProfileEditFormFields';
-import Input from '../../../UI/Input/Input';
-import type { StateType } from "../../../../store/reducers/types";
+import { areTwoObjectsTheSame } from '../../../../utils/utilits';
 
-interface ProfileEditFormType {
-    email: string
-    firstname: string
-    lastname: string
-    username: string
+import classes from './ProfileEdit.module.scss';
+import Input from '../../../UI/Input/Input';
+import Button from '../../../UI/Button/Button';
+import type { StateType } from "../../../../store/reducers/types";
+import type { ProfileEditFormType } from '../types';
+
+interface ProfileEditPropsType {
+    // eslint-disable-next-line no-unused-vars
+    profileEditFormSubmitted: (profileEditData: ProfileEditFormType) => void
 }
 
-const ProfileEdit = () => {
+const ProfileEdit = (props: ProfileEditPropsType) => {
+    const [isFormValid, setIsFormValid] = useState(false);
     const username: string | null = useSelector((state: StateType) => state.username);
     const firstname: string | null = useSelector((state: StateType) => state.firstname);
     const lastname: string | null = useSelector((state: StateType) => state.lastname);
@@ -23,6 +26,7 @@ const ProfileEdit = () => {
         register,
         handleSubmit,
         reset,
+        watch,
         control,
         formState: { errors, isValid },
     } = useForm<ProfileEditFormType>({
@@ -37,23 +41,46 @@ const ProfileEdit = () => {
         mode: "onChange"
     });
 
+    // To be used if the form is reset
+    const INITIAL_USERDATA = useMemo(() => {
+        return {
+            username, firstname, lastname, email
+        }
+    }, [username, firstname, lastname, email]);
+
     useEffect(() => {
         reset({
             firstname: firstname ? firstname : '',
             lastname: lastname ? lastname : '',
             username: username ? username : '',
             email: email ? email : ''
-        })
+        });
     }, [reset, username, firstname, lastname, email]);
 
-    // To be used if the form is reset
-    const INITIAL_USERDATA = { username, firstname, lastname, email };
-    console.log(INITIAL_USERDATA)
+    useEffect(() => {
+        const subscription = watch((value) => {
+            setIsFormValid(!areTwoObjectsTheSame(value, INITIAL_USERDATA) && isValid);
+        });
 
-    console.log(isValid)
+        return () => subscription.unsubscribe();
+    }, [watch, INITIAL_USERDATA, isValid]);
+
+    useEffect(() => {
+        setIsFormValid(!areTwoObjectsTheSame({ firstname, lastname, username, email }, INITIAL_USERDATA) && isValid);
+    }, [firstname, lastname, username, email, INITIAL_USERDATA, isValid]);
+
+    const onResetFormHandler = () => {
+        const { firstname, lastname, username, email } = INITIAL_USERDATA;
+        reset({
+            firstname: firstname ? firstname : '',
+            lastname: lastname ? lastname : '',
+            username: username ? username : '',
+            email: email ? email : ''
+        });
+    }
 
     const onSubmit: SubmitHandler<ProfileEditFormType> = (data: ProfileEditFormType) => {
-        console.log(data);
+        props.profileEditFormSubmitted(data);
     }
 
     const formContent = Object.keys(FORM_FIELDS).map(
@@ -82,9 +109,23 @@ const ProfileEdit = () => {
         <div className={classes.ProfileEdit}>
             <h2>PROFILE DATA</h2>
 
-            <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+            <form autoComplete="off">
                 {formContent}
             </form>
+
+            <div className={classes.ProfileEdit__Cta}>
+                <Button
+                    btnType='BtnDanger'
+                    label='Reset'
+                    disabled={!isFormValid} clicked={onResetFormHandler}
+                />
+
+                <Button
+                    btnType='BtnCustom'
+                    label='Update'
+                    disabled={!isFormValid} clicked={handleSubmit(onSubmit)}
+                />
+            </div>
         </div>
     )
 }

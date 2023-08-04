@@ -12,4 +12,13 @@
         width: 70%;
         margin: 4rem auto;
     }
+
+    &__Cta {
+        display: flex;
+        justify-content: flex-end;
+
+        button:first-child {
+            margin-right: 2rem;
+        }
+    }
 }

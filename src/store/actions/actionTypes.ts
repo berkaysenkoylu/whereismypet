@@ -9,3 +9,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_MODAL = 'CLEAR_MODAL';
+
+export const PROFILE_EDIT_START = 'PROFILE_EDIT_START';
+export const PROFILE_EDIT_SUCCESS = 'PROFILE_EDIT_SUCCESS';
+export const PROFILE_EDIT_FAIL = 'PROFILE_EDIT_FAIL';

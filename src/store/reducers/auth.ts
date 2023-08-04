@@ -14,7 +14,8 @@ const initialState: StateType = {
     userImage: null,
     showFeedbackModal: false,
     successfullSignup: false,
-    successfullLogin: false
+    successfullLogin: false,
+    isError: false
 };
 
 const updateObject = (oldObject: StateType, updatedProperties: Partial<StateType>): StateType => {
@@ -95,6 +96,31 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 userId: null,
                 userImage: null,
                 successfullLogin: false
+            });
+        case actionTypes.PROFILE_EDIT_START:
+            return updateObject(state, {
+                isLoading: true,
+                responseMessage: null,
+                isError: false
+            });
+        case actionTypes.PROFILE_EDIT_SUCCESS:
+            return updateObject(state, {
+                isLoading: false,
+                showFeedbackModal: action.showFeedbackModal,
+                responseMessage: action.responseMessage,
+                isError: false,
+                firstname: action.firstname,
+                lastname: action.lastname,
+                email: action.email,
+                username: action.username,
+                userImage: action.userImage
+            });
+        case actionTypes.PROFILE_EDIT_FAIL:
+            return updateObject(state, {
+                isLoading: false,
+                responseMessage: action.responseMessage,
+                showFeedbackModal: true,
+                isError: true
             });
         default:
             break;
