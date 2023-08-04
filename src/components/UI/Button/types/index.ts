@@ -6,5 +6,6 @@ export interface ButtonPropsType {
     label: string
 	btnSize?: ButtonSizeType
 	disabled?: boolean
-	clicked?: () => void
+	// eslint-disable-next-line no-unused-vars
+	clicked?: (e: React.MouseEvent<HTMLElement> | undefined) => void
 }

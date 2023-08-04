@@ -1,18 +1,14 @@
 @import '../../../../variables';
 
-.ProfileEdit {
+.AvatarEdit {
     h2 {
         @include h2TitleStyle;
-    }
-
-    form {
-        width: 70%;
-        margin: 4rem auto;
     }
 
     &__Cta {
         display: flex;
         justify-content: flex-end;
+        margin-top: 2rem;
 
         button:first-child {
             margin-right: 2rem;

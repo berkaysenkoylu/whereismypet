@@ -1,0 +1,23 @@
+@import '../../../../../variables';
+
+.AvatarShowcase {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    shape-outside: circle(50% at 50% 50%);
+    border-radius: 50%;
+    height: 24rem;
+    width: 24rem;
+    overflow: hidden;
+    position: relative;
+    margin: 3rem auto;
+    border: 1px $color-grey-light-2 solid;
+
+    &__Img {
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        background-image: url(/src/assets/images/avatar-default.png);
+        background-position: 50% 50%;
+        background-size: cover;
+        height: 100%;
+    }
+}

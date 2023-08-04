@@ -107,3 +107,10 @@ $bp-xsmall: 28.125em; // 450px / 16px = 28.125em
     border: 1px $gray solid;
     border-radius: 6px;
 }
+
+@mixin h2TitleStyle {
+    font-size: $small-header-font-size;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-align: center;
+}

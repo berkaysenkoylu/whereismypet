@@ -64,7 +64,7 @@ const NavigationDropdown = (props: any) => {
         return dropDownItems.map((item: any, index: number) => {
             // return <li key={index} className={classes.NavigationDropdown__Menu__Item}>link {index + 1}</li>
             return (
-                <DropdownMenuItem key={index} data={item} />
+                <DropdownMenuItem key={index} data={item} dropdownItemClicked={() => setShowMenu(false)} />
             );
         });
     }

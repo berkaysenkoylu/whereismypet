@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import svg from '../../../../../assets/images/sprite.svg';
@@ -17,7 +16,7 @@ const DropdownMenuItem = (props: any) => {
     }
 
     return (
-        <NavLink to={path} className={classes.DropdownMenuItem}>
+        <NavLink to={path} className={classes.DropdownMenuItem} onClick={props.dropdownItemClicked}>
             <span className={classes.DropdownMenuItem__Content}>
                 {renderIcon()}
                 <span>{name}</span>

@@ -1,0 +1,31 @@
+@import '../../variables';
+
+.DropContainer {
+    width: 80%;
+    margin: 0 auto;
+    height: 15rem;
+    color: #aaa;
+    border: 5px dashed #aaa;
+    position: relative;
+    transition: all 0.2s ease-out;
+
+    &__InfoText {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: $default-font-size;
+        font-weight: 600;
+        color: inherit;
+    }
+
+    &__FileSelect {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        button {
+            margin: 0 0 8px 8px;
+        }
+    }
+}
