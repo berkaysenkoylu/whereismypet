@@ -3,8 +3,17 @@ import { ChangeEvent, useRef } from 'react';
 import classes from './File.module.scss';
 import Button from '../UI/Button/Button';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const File = (props: any) => {
+interface FilePropsType {
+    isMultiple: boolean | undefined
+    droppedFile: FileList | null | undefined
+    // eslint-disable-next-line no-unused-vars
+    selectedFile?: (file: File) => void
+    // eslint-disable-next-line no-unused-vars
+    selectedFiles?: (fileList: FileList) => void
+}
+
+const File = (props: FilePropsType) => {
+    const { isMultiple, droppedFile, selectedFile, selectedFiles } = props;
     const fileInput = useRef<HTMLInputElement>(null);
 
     const onFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
@@ -13,12 +22,16 @@ const File = (props: any) => {
         }
 
         // TODO handle more than one file selects later
-        props.selectedFile(event.target.files[0]);
+        if (!isMultiple) {
+            selectedFile && selectedFile(event.target.files[0]);
+        } else {
+            selectedFiles && selectedFiles(event.target.files);
+        }
     }
 
-    if(props.droppedFile) {
+    if(droppedFile) {
         if (fileInput.current) {
-            fileInput.current.files = props.droppedFile;
+            fileInput.current.files = droppedFile;
         }
     }
 
@@ -32,7 +45,15 @@ const File = (props: any) => {
 
     return (
         <>
-            <input type="file" name="image" id="image" onChange={onFileSelected} ref={fileInput} className={classes.Input} />
+            <input
+                type="file"
+                name="image"
+                id="image"
+                multiple={props.isMultiple}
+                onChange={onFileSelected}
+                ref={fileInput}
+                className={classes.Input}
+            />
 
             <Button
                 btnType="BtnCustom"
