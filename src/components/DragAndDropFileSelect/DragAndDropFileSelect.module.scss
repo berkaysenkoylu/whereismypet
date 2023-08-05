@@ -4,8 +4,8 @@
     width: 80%;
     margin: 0 auto;
     height: 15rem;
-    color: #aaa;
-    border: 5px dashed #aaa;
+    color: $color-grey-light-2;
+    border: 5px dashed $color-grey-light-2;
     position: relative;
     transition: all 0.2s ease-out;
 
@@ -28,4 +28,18 @@
             margin: 0 0 8px 8px;
         }
     }
+
+    &__Enter {
+        color: $color-grey-dark-1;
+        background-color: $color-gray-light;
+        border: 5px dashed $color-grey-dark-1;
+    }
+}
+
+.InvalidFileType {
+    color: $red;
+}
+
+.ValidFileType {
+    color: $green;
 }
