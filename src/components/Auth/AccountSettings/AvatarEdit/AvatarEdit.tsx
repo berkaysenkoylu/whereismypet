@@ -8,8 +8,8 @@ import DragAndDropFileSelect from '../../../DragAndDropFileSelect/DragAndDropFil
 const AvatarEdit = () => {
     const [selectedFile, setSelectedFile] = useState<File>();
 
-    const onFilesSelectedHandler = (file: File) => {
-        setSelectedFile(file)
+    const onFileSelectedHandler = (file: File | undefined) => {
+        setSelectedFile(file);
     }
 
     return (
@@ -19,7 +19,7 @@ const AvatarEdit = () => {
             <AvatarShowcase />
 
             <DragAndDropFileSelect
-                dropHandle={onFilesSelectedHandler}
+                dropHandle={onFileSelectedHandler}
                 singleImageSelect
                 file={selectedFile as File}
             />

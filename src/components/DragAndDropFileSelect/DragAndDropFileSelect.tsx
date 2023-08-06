@@ -13,12 +13,14 @@ interface DragAndDropFileSelectPropsType {
     singleImageSelect?: boolean
     file: File
     fileList?: FileList
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-explicit-any
-    dropHandle: (file: any) => void
+    // eslint-disable-next-line no-unused-vars
+    dropHandle: (file: File | undefined) => void
+    // eslint-disable-next-line no-unused-vars
+    multiFileDropHandle?: (files: FileList | undefined) => void
 }
 
 const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
-    const { singleImageSelect, file, dropHandle } = props;
+    const { singleImageSelect, file, fileList, dropHandle, multiFileDropHandle } = props;
     const [classList, setClassList] = useState([classes.DropContainer]);
     const [contentClassList, setContentClassList] = useState([classes.DropContainer__InfoText]);
     const [labelText, setLabelText] = useState('DRAG YOUR FILE HERE (.png, .jpeg, jpg)');
@@ -40,17 +42,37 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
         setClassList([classes.DropContainer, classes.DropContainer__Enter]);
 
         if (event.dataTransfer && event.dataTransfer.items && event.dataTransfer.items.length > 0) {
-            const isValid = checkMimeType(event.dataTransfer.items[0].type);
-            if(isValid) {
-                setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
-                setLabelText('DROP YOUR FILE HERE');
-            }
-            else {
-                setContentClassList([classes.DropContainer__InfoText, classes.InvalidFileType]);
-                setLabelText('INVALID FILE TYPE!');
+            if (singleImageSelect) {
+                    const isValid = checkMimeType(event.dataTransfer.items[0].type);
+                    if(isValid) {
+                        setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+                        setLabelText('DROP YOUR FILE HERE');
+                    }
+                    else {
+                        setContentClassList([classes.DropContainer__InfoText, classes.InvalidFileType]);
+                        setLabelText('INVALID FILE TYPE!');
+                    }
+            } else {
+                const selectedFileList = event.dataTransfer.items;
+                let validFileType = true;
+                for (let i = 0; i < selectedFileList.length; i++) {
+                    validFileType = validFileType &&
+                        (checkMimeType(selectedFileList[i].type) === 'png' ||
+                        checkMimeType(selectedFileList[i].type) === 'jpg' ||
+                        checkMimeType(selectedFileList[i].type) === 'jpeg');
+                }
+
+                if(validFileType) {
+                    setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+                    setLabelText('DROP YOUR FILES HERE');
+                }
+                else {
+                    setContentClassList([classes.DropContainer__InfoText, classes.InvalidFileType]);
+                    setLabelText('INVALID FILE TYPE!');
+                }
             }
         }
-    }, []);
+    }, [singleImageSelect]);
 
     const dragOutHandler = useCallback((event: DragEvent) => {
         event.preventDefault();
@@ -61,8 +83,6 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
             return;
         }
 
-        setClassList([classes.DropContainer]);
-
         if(selectedFileName === undefined || selectedFileName === '') {
             setClassList([classes.DropContainer]);
             setContentClassList([classes.DropContainer__InfoText]);
@@ -70,9 +90,15 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
         } else {
             setClassList([classes.DropContainer, classes.DropContainer__Enter]);
             setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
-            setLabelText(`Selected file: ${selectedFileName}`);
+
+            if (singleImageSelect) {
+                setLabelText(`Selected file: ${selectedFileName}`);
+            } else {
+                setLabelText(`Selected files: ${selectedFileName}`);
+            }
         }
-    }, [selectedFileName]);
+        
+    }, [selectedFileName, singleImageSelect]);
 
     const dragOverHandler = useCallback((event: DragEvent) => {
         event.preventDefault();
@@ -83,11 +109,12 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
         event.preventDefault();
         event.stopPropagation();
 
+        dragCounterRef.current = 0;
+
         if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
             if (singleImageSelect) {
                 if(checkMimeType(event.dataTransfer.files[0].type)) {
                     dropHandle(event.dataTransfer.files[0]);
-                    dragCounterRef.current = 0;
     
                     const name = event.dataTransfer.files[0].name;
 
@@ -119,9 +146,55 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
                 }
             } else {
                 // TODO handle multiple image select
+                const selectedFileList: FileList = event.dataTransfer.files;
+                let isValidMimeType = true;
+                // Change this with multiple select showcase
+                const possibleNameArr = [];
+
+                if (selectedFileList.length > 4) {
+                    console.log("YOU CANNOT UPLOAD MORE THAN 4 FILES");
+                    return;
+                }
+
+                for (let i = 0; i < selectedFileList.length; i++) {
+                    isValidMimeType = isValidMimeType &&
+                        (checkMimeType(selectedFileList[i].type) === 'png' ||
+                        checkMimeType(selectedFileList[i].type) === 'jpg' ||
+                        checkMimeType(selectedFileList[i].type) === 'jpeg');
+
+                    possibleNameArr.push(selectedFileList[i].name);
+                }
+
+                if (!isValidMimeType) {
+                    // If files are not selected previously
+                    if (!fileList) {
+                        multiFileDropHandle && multiFileDropHandle(undefined);
+                        
+                        setClassList([classes.DropContainer])
+                        setContentClassList([classes.DropContainer__InfoText]);
+                        setLabelText('DRAG YOUR FILES HERE (.png, .jpeg, jpg)');
+                        setDataTransferFiles(null);
+                        setSelectedFileName('');
+                    } else {
+                        if(selectedFileName !== undefined || selectedFileName !== '') {
+                            setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+                            setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+                            setSelectedFileName(selectedFileName);
+                            setLabelText(`Selected file: ${selectedFileName}`);
+                        }
+                    }
+                } else {
+                    multiFileDropHandle && multiFileDropHandle(selectedFileList);
+
+                    setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+                    setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+                    setDataTransferFiles(selectedFileList);
+                    setSelectedFileName(possibleNameArr.join(', '));
+                    setLabelText(`Selected files: ${possibleNameArr.join(', ')}`);
+                }
             }
         }
-    }, [dropHandle, file, selectedFileName, singleImageSelect]);
+    }, [dropHandle, multiFileDropHandle, file, fileList, selectedFileName, singleImageSelect]);
 
     useEffect(() => {
         const dropElement = dropRef.current;
@@ -139,17 +212,54 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
         }
     }, [dragInHandler, dragOutHandler, dragOverHandler, dropHandler]);
 
-    const onFileSelectedViaButton = (file: File) => {
-        if(!checkMimeType(file.type)) {
-            return;
+    const onFileSelectedViaButton = (file: File | FileList) => {
+        if (singleImageSelect) {
+            const inpFile = file as File;
+            if(!checkMimeType(inpFile.type)) {
+                return;
+            }
+
+            setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+            setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+            setSelectedFileName(inpFile.name);
+            setLabelText(`Selected file: ${inpFile.name}`);
+
+            dropHandle(inpFile);
+        } else {
+            const selectedFileList: FileList = file as FileList;
+            let isValidMimeType = true;
+            // Change this with multiple select showcase
+            const possibleNameArr = [];
+
+            for (let i = 0; i < selectedFileList.length; i++) {
+                isValidMimeType = isValidMimeType &&
+                    (checkMimeType(selectedFileList[i].type) === 'png' ||
+                    checkMimeType(selectedFileList[i].type) === 'jpg' ||
+                    checkMimeType(selectedFileList[i].type) === 'jpeg');
+
+                possibleNameArr.push(selectedFileList[i].name);
+            }
+
+            if (!isValidMimeType) {
+                // if files had been selected previously
+                if (fileList) {
+                    setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+                    setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+                    setLabelText(`Selected files: ${selectedFileName}`);
+                } else {
+                    setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+                    setContentClassList([classes.DropContainer__InfoText, classes.InvalidFileType]);
+                    setLabelText('INVALID FILE TYPE!');
+                }
+            } else {
+                multiFileDropHandle && multiFileDropHandle(selectedFileList);
+
+                setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+                setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
+                setSelectedFileName(possibleNameArr.join(', '));
+                setLabelText(`Selected files: ${possibleNameArr.join(', ')}`);
+            }
         }
-
-        setClassList([classes.DropContainer, classes.DropContainer__Enter]);
-        setContentClassList([classes.DropContainer__InfoText, classes.ValidFileType]);
-        setSelectedFileName(file.name);
-        setLabelText(`Selected file: ${file.name}`);
-
-        dropHandle(file);
     }
 
     return (

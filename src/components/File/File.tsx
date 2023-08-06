@@ -7,26 +7,19 @@ interface FilePropsType {
     isMultiple: boolean | undefined
     droppedFile: FileList | null | undefined
     // eslint-disable-next-line no-unused-vars
-    selectedFile?: (file: File) => void
-    // eslint-disable-next-line no-unused-vars
-    selectedFiles?: (fileList: FileList) => void
+    selectedFile: (file: File | FileList) => void
 }
 
 const File = (props: FilePropsType) => {
-    const { isMultiple, droppedFile, selectedFile, selectedFiles } = props;
+    const { isMultiple, droppedFile, selectedFile } = props;
     const fileInput = useRef<HTMLInputElement>(null);
 
     const onFileSelected = (event: ChangeEvent<HTMLInputElement>) => {
-        if (!event.target.files) {
+        if (!event.target.files || event.target.files.length === 0) {
             return;
         }
 
-        // TODO handle more than one file selects later
-        if (!isMultiple) {
-            selectedFile && selectedFile(event.target.files[0]);
-        } else {
-            selectedFiles && selectedFiles(event.target.files);
-        }
+        selectedFile(!isMultiple ? event.target.files[0] : event.target.files);
     }
 
     if(droppedFile) {
