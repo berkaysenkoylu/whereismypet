@@ -19,9 +19,7 @@ interface AuthenticationPropsType {
     showFeedbackModal: boolean
     successfullSignup: boolean
     successfullLogin: boolean
-    // eslint-disable-next-line no-unused-vars
     login: (loginFormData: LoginUserDataType) => void
-    // eslint-disable-next-line no-unused-vars
     signup: (signupFormData: SignupUserDataType) => void
     clearModal: () => void
 }

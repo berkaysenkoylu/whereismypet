@@ -212,7 +212,7 @@ const profileEditFail = (error: string) => {
     };
 }
 
-export const profileEdit = (userId: string | null, profileEditFormData: ProfileEditFormDataType) => {
+export const profileEdit = (userId: string | null, profileEditFormData: ProfileEditFormDataType | FormData) => {
     // TODO type tanımlaması yapılmalı
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (dispatch: any) => {

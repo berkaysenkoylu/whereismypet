@@ -12,7 +12,6 @@ import type { StateType } from "../../../../store/reducers/types";
 import type { ProfileEditFormType } from '../types';
 
 interface ProfileEditPropsType {
-    // eslint-disable-next-line no-unused-vars
     profileEditFormSubmitted: (profileEditData: ProfileEditFormType) => void
 }
 

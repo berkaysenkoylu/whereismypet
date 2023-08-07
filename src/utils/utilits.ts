@@ -1,3 +1,5 @@
+export const BACKEND_ORIGIN = 'http://localhost:8000';
+
 // TODO revisit this, make it fool-proof
 export const areTwoObjectsTheSame = (obj1: object, obj2: object) => {
     if (Object.keys(obj1).length !==  Object.keys(obj2).length) {

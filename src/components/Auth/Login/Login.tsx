@@ -12,7 +12,6 @@ interface LoginFormType {
 }
 
 interface LoginPropsType {
-    // eslint-disable-next-line no-unused-vars
     loginFormSubmitted: (formData : LoginFormType) => void
 }
 

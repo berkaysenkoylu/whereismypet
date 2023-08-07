@@ -13,14 +13,13 @@ interface DragAndDropFileSelectPropsType {
     singleImageSelect?: boolean
     file: File
     fileList?: FileList
-    // eslint-disable-next-line no-unused-vars
+    userImage?: string | null
     dropHandle: (file: File | undefined) => void
-    // eslint-disable-next-line no-unused-vars
     multiFileDropHandle?: (files: FileList | undefined) => void
 }
 
 const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
-    const { singleImageSelect, file, fileList, dropHandle, multiFileDropHandle } = props;
+    const { singleImageSelect, file, fileList, userImage, dropHandle, multiFileDropHandle } = props;
     const [classList, setClassList] = useState([classes.DropContainer]);
     const [contentClassList, setContentClassList] = useState([classes.DropContainer__InfoText]);
     const [labelText, setLabelText] = useState('DRAG YOUR FILE HERE (.png, .jpeg, jpg)');
@@ -28,6 +27,14 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
     const [selectedFileName, setSelectedFileName] = useState<string>('');
     const dropRef = useRef<HTMLDivElement>(null);
     const dragCounterRef = useRef<number>(0);
+
+    useEffect(() => {
+        setClassList([classes.DropContainer])
+        setContentClassList([classes.DropContainer__InfoText]);
+        setLabelText('DRAG YOUR FILE HERE (.png, .jpeg, jpg)');
+        setDataTransferFiles(null);
+        setSelectedFileName('');
+    }, [userImage]);
 
     const checkMimeType = (file: string) => {
         return MIME_TYPE_MAP[file as keyof typeof MIME_TYPE_MAP];

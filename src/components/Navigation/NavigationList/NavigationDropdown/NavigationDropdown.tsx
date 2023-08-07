@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 import svg from '../../../../assets/images/sprite.svg';
 import classes from './NavigationDropdown.module.scss';
 import DropdownMenuItem from './DropdownMenuItem/DropdownMenuItem';
+import { BACKEND_ORIGIN } from '../../../../utils/utilits';
+import type { StateType } from '../../../../store/reducers/types';
 
 // TODO type tanımlamaları yapılacak
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const NavigationDropdown = (props: any) => {
+    const userImage: string | null = useSelector((state: StateType) => state.userImage);
     const [showMenu, setShowMenu] = useState(false);
     const { data } = props;
     const { name, icon, isAccount, showName, type, dropDownItems } = data;
@@ -50,10 +54,16 @@ const NavigationDropdown = (props: any) => {
     }
 
     const renderAccountImage = () => {
+        let style = {};
+        if (userImage) {
+            style = {
+                backgroundImage: `url(${BACKEND_ORIGIN + '/' + userImage.replace(/\\/g, '/')})`
+            }
+        }
         return (
             <div className={classes.NavigationDropdown__AccImgContainer}>
                 <figure className={classes.NavigationDropdown__AccImgContainer__Image}>
-                    <div className={classes.NavigationDropdown__AccImgContainer__Image__Item} />
+                    <div className={classes.NavigationDropdown__AccImgContainer__Image__Item} style={style} />
                 </figure>
             </div>
         );

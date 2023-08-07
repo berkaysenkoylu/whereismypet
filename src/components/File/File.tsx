@@ -6,7 +6,6 @@ import Button from '../UI/Button/Button';
 interface FilePropsType {
     isMultiple: boolean | undefined
     droppedFile: FileList | null | undefined
-    // eslint-disable-next-line no-unused-vars
     selectedFile: (file: File | FileList) => void
 }
 

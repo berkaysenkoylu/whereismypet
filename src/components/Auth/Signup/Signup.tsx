@@ -14,7 +14,6 @@ interface SignupPropsType {
     // showFeedbackModal: boolean;
     // modalMessage: string;
     // clearModal: () => void;
-    // eslint-disable-next-line no-unused-vars
     signupFormSubmitted: (formData: SignupUserDataType) => void;
 }
 
@@ -26,8 +25,7 @@ const Signup = (props: SignupPropsType) => {
         watch,
         handleSubmit,
         control,
-        // eslint-disable-next-line no-unused-vars
-        formState: { errors, isValid/*, touchedFields*/ },
+        formState: { errors, isValid },
     } = useForm<SignupUserDataType>({
         defaultValues: {
           firstname: "",

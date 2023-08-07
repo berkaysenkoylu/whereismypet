@@ -1,6 +1,11 @@
+
+import classes from './PasswordEdit.module.scss';
+
 const PasswordEdit = () => {
     return (
-        <div>PasswordEdit</div>
+        <div className={classes.PasswordEdit}>
+            <h2>CHANGE PASSWORD</h2>
+        </div>
     );
 }
 

@@ -6,7 +6,6 @@ import type { OptionType } from './types';
 
 interface SettingsMenuPropsType {
     selectedOption: number
-    // eslint-disable-next-line no-unused-vars
     onOptionItemClicked: (id: number) => void
 }
 

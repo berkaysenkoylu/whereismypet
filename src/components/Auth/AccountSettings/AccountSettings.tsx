@@ -18,8 +18,7 @@ interface AccountSettingsPropsType {
     responseMessage: string | null
     isError: boolean
     showFeedbackModal: boolean
-    // eslint-disable-next-line no-unused-vars
-    profileEdit: (userId: string | null, data: ProfileEditFormType) => void
+    profileEdit: (userId: string | null, data: ProfileEditFormType | FormData) => void
     clearModal: () => void
 }
 
@@ -36,6 +35,16 @@ const AccountSettings = (props: AccountSettingsPropsType) => {
         profileEdit(userId, data);
     }
 
+    const onUpdatedUserImageHandler = (file: File) => {
+        const formData = new FormData();
+
+        if (typeof file !== 'undefined') {
+            formData.append('userImage', file);
+        }
+
+        profileEdit(userId, formData);
+    }
+
     const onFeedbackModalClosedHandler = () => {
         timeoutRef.current = setTimeout(() => {
             props.clearModal();
@@ -49,7 +58,7 @@ const AccountSettings = (props: AccountSettingsPropsType) => {
             content = <ProfileEdit profileEditFormSubmitted={onProfileEditFormSubmittedHandler} />;
             break;
         case 2:
-            content = <AvatarEdit />;
+            content = <AvatarEdit updatedUserImage={onUpdatedUserImageHandler} />;
             break;
         case 3:
             content = <PasswordEdit />;
@@ -93,7 +102,7 @@ const mapStateToProps = (state: StateType) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        profileEdit: (userId: string | null, data: ProfileEditFormType) => dispatch(actions.profileEdit(userId, data)),
+        profileEdit: (userId: string | null, data: ProfileEditFormType | FormData) => dispatch(actions.profileEdit(userId, data)),
         clearModal: () => dispatch(actions.clearModal())
     }
 }

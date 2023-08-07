@@ -19,7 +19,9 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     eqeqeq: 1,
-    'no-unused-vars': ['error', { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false }],
+    //'no-unused-vars': ['error', { 'vars': 'all', 'args': 'after-used', 'ignoreRestSiblings': false }],
+    'no-unused-vars': "off",
+    '@typescript-eslint/no-unused-vars': ["error"],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
@@ -29,6 +31,6 @@ module.exports = {
     '@typescript-eslint/no-misused-promises': [
         'error',
         {'checksVoidReturn': {'attributes': false}}
-    ]
+    ],
   },
 }
