@@ -9,7 +9,7 @@ import SettingsMenu from './SettingsMenu/SettingsMenu';
 import AvatarEdit from './AvatarEdit/AvatarEdit';
 import PasswordEdit from './PasswordEdit/PasswordEdit';
 import AccountTermination from './AccountTermination/AccountTermination';
-import type { ProfileEditFormType } from './types';
+import type { PasswordEditFormType, ProfileEditFormType } from './types';
 import type { StateType } from '../../../store/reducers/types';
 import AuthFeedback from '../AuthFeedback/AuthFeedback';
 
@@ -18,7 +18,7 @@ interface AccountSettingsPropsType {
     responseMessage: string | null
     isError: boolean
     showFeedbackModal: boolean
-    profileEdit: (userId: string | null, data: ProfileEditFormType | FormData) => void
+    profileEdit: (userId: string | null, data: ProfileEditFormType | FormData | PasswordEditFormType) => void
     clearModal: () => void
 }
 
@@ -32,6 +32,10 @@ const AccountSettings = (props: AccountSettingsPropsType) => {
     }
 
     const onProfileEditFormSubmittedHandler = (data: ProfileEditFormType) => {
+        profileEdit(userId, data);
+    }
+
+    const onPasswordEditFormSubmittedHandler = (data: PasswordEditFormType) => {
         profileEdit(userId, data);
     }
 
@@ -61,7 +65,7 @@ const AccountSettings = (props: AccountSettingsPropsType) => {
             content = <AvatarEdit updatedUserImage={onUpdatedUserImageHandler} />;
             break;
         case 3:
-            content = <PasswordEdit />;
+            content = <PasswordEdit passwordEditFormSubmitted={onPasswordEditFormSubmittedHandler} />;
             break;
         case 4:
             content = <AccountTermination />;
@@ -102,7 +106,7 @@ const mapStateToProps = (state: StateType) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        profileEdit: (userId: string | null, data: ProfileEditFormType | FormData) => dispatch(actions.profileEdit(userId, data)),
+        profileEdit: (userId: string | null, data: ProfileEditFormType | FormData | PasswordEditFormType) => dispatch(actions.profileEdit(userId, data)),
         clearModal: () => dispatch(actions.clearModal())
     }
 }

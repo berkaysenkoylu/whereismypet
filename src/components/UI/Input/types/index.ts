@@ -7,6 +7,8 @@ export interface InputValidationType {
     required?: ValidatorAgentType
     maxLength?: ValidatorAgentType
     pattern?: ValidatorAgentType
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    validate?: (value: any) => any
 }
 
 export interface ElementConfigType {

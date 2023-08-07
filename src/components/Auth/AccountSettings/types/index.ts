@@ -4,3 +4,9 @@ export interface ProfileEditFormType {
     lastname: string
     username: string
 }
+
+export interface PasswordEditFormType {
+    currentPassword: string
+    newPassword: string
+    confirmPassword: string
+}

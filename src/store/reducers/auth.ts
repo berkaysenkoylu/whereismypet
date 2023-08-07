@@ -81,7 +81,8 @@ const reducer = (state: StateType = initialState, action: ActionType): StateType
                 responseMessage: null,
                 successfullLogin: false,
                 successfullSignup: false,
-                showFeedbackModal: false
+                showFeedbackModal: false,
+                isError: false
             });
         case actionTypes.LOGOUT:
             return updateObject(state, {

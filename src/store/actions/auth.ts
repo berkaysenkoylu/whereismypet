@@ -8,6 +8,7 @@ import type {
     ProfileEditFormDataType,
     ProfileEditSuccessDataType
 } from './types';
+import { PasswordEditFormType } from '../../components/Auth/AccountSettings/types';
 
 export const signupStart = () => {
     return {
@@ -212,7 +213,7 @@ const profileEditFail = (error: string) => {
     };
 }
 
-export const profileEdit = (userId: string | null, profileEditFormData: ProfileEditFormDataType | FormData) => {
+export const profileEdit = (userId: string | null, profileEditFormData: ProfileEditFormDataType | FormData | PasswordEditFormType) => {
     // TODO type tanımlaması yapılmalı
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (dispatch: any) => {

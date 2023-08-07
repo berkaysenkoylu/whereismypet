@@ -66,11 +66,16 @@ const PasswordFeedback = (props: any) => {
         // eslint-disable-next-line
     }, [props.validation]);
 
+    let style = {};
+    if (props.style) {
+        style = props.style;
+    }
+
     let content = null;
 
     if (visible) {
         content = (
-            <div className={classList.join(' ')} ref={ref} id='PasswordFeedback'>
+            <div className={classList.join(' ')} style={style} ref={ref} id='PasswordFeedback'>
                 {Object.keys(validationMap).map(condition => {
                     return <FeedbackCondition
                         key={condition}
