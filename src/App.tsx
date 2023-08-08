@@ -11,6 +11,7 @@ import Home from './components/Home/Home';
 import Authentication from './containers/Authentication/Authentication';
 import Logout from './components/Auth/Logout/Logout';
 import AccountSettings from './components/Auth/AccountSettings/AccountSettings';
+import CreatePoster from './components/Poster/CreatePoster/CreatePoster';
 import type { StateType } from './store/reducers/types';
 
 interface AppPropsType {
@@ -28,7 +29,8 @@ const router = createBrowserRouter([
             { index: true, element: <Home /> },
             { path: '/auth', element: <Authentication />, loader: checkNotAuthLoader },
             { path: '/logout', element: <Logout />, loader: checkAuthLoader },
-            { path: '/account', element: <AccountSettings />, loader: checkAuthLoader }
+            { path: '/account', element: <AccountSettings />, loader: checkAuthLoader },
+            { path: '/new-poster', element: <CreatePoster />, loader: checkAuthLoader }
         ]
     }
 ]);

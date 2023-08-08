@@ -12,6 +12,7 @@ import classes from './Input.module.scss';
 interface InputPropsType {
     testid: string
     name: string
+    elementType: string
     elementConfig: ElementConfigType
     validation: InputValidationType
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +32,7 @@ interface InputPropsType {
 const Input = (props: InputPropsType) => {
     const {
         testid,
+        elementType,
         elementConfig,
         name,
         validation,
@@ -72,6 +74,41 @@ const Input = (props: InputPropsType) => {
         typeof focusLost === "function" && focusLost();
     };
 
+    let inputElement = null;
+
+    switch(elementType) {
+        case 'input':
+            inputElement = <input
+                data-testid={testid}
+                {...field}
+                {...elementConfig}
+                {...register(name, validation)}
+                className={[
+                    classes.InputContainer__Input,
+                    invalid && isTouched ? classes.InvalidInput : "",
+                ].join(" ")}
+                onBlur={onInputFocusLost}
+                onFocus={onInputFocused}
+            />
+            break;
+        case 'textarea':
+            inputElement = <textarea
+                {...field}
+                {...elementConfig}
+                {...register(name, validation)}
+                className={[
+                    classes.InputContainer__Input,
+                    classes.TextArea,
+                    invalid && isTouched ? classes.InvalidInput : "",
+                ].join(' ')} 
+                {...props.elementConfig}
+            />;
+            break;
+        default:
+            console.error('Something wrong with your input element!');
+            break;
+    }
+
 	return (
 		<div className={[
             classes.InputContainer,
@@ -87,20 +124,8 @@ const Input = (props: InputPropsType) => {
             >
                 {message}
             </span>
-			<input
-                data-testid={testid}
-                {...field}
-                {...elementConfig}
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                {...register(name, validation)}
-                className={[
-                    classes.InputContainer__Input,
-                    invalid && isTouched ? classes.InvalidInput : "",
-                ].join(" ")}
-                onBlur={onInputFocusLost}
-                onFocus={onInputFocused}
-            />
-            <span className={classes.InputContainer__BottomBorder}></span>
+			{inputElement}
+            <span className={classes.InputContainer__BottomBorder} style={elementType === 'textarea' ? {bottom: '2px'} : {}}></span>
             <label>
                 {placeholder}
             </label>

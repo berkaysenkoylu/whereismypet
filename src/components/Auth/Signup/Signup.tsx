@@ -56,13 +56,14 @@ const Signup = (props: SignupPropsType) => {
 
     const formContent = Object.keys(FORM_FIELDS).map(
         (formField: string, index: number) => {
-          const { elementConfig, validation } =
+          const { elementType, elementConfig, validation } =
             FORM_FIELDS[formField as keyof typeof FORM_FIELDS];
     
           return (
             <Input
                 testid={`testid-${formField}`}
                 key={formField}
+                elementType={elementType}
                 elementConfig={elementConfig}
                 name={formField}
                 register={register}

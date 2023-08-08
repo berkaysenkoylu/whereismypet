@@ -35,7 +35,8 @@ const PasswordEdit = (props: PasswordEditPropsType) => {
         },
         mode: "onChange"
     });
-    const [validLength, hasNumber, upperCase, specialChar] = usePasswordValidation(watch("newPassword"));
+    const [isFormValid, setIsFormValid] = useState(isValid);
+    const [validLength, hasNumber, upperCase, specialChar] = usePasswordValidation(watch("newPassword"))
 
     const newPassword = watch("newPassword");
     const confirmPassword = watch("confirmPassword");
@@ -43,10 +44,12 @@ const PasswordEdit = (props: PasswordEditPropsType) => {
     useEffect(() => {
         if (newPassword !== confirmPassword) {
             setShowPasswordErrorClassList([classes.PasswordEdit__Error, classes.PasswordEdit__Error__Show]);
+            setIsFormValid(false);
         } else {
             setShowPasswordErrorClassList([classes.PasswordEdit__Error]);
+            setIsFormValid(isValid && true);
         }
-    }, [newPassword, confirmPassword, touchedFields]);
+    }, [newPassword, confirmPassword, touchedFields, isValid]);
 
     useEffect(() => {
         if (responseMessage && responseMessage !== '' && !isError) {
@@ -80,13 +83,14 @@ const PasswordEdit = (props: PasswordEditPropsType) => {
 
     const formContent = Object.keys(FORM_FIELDS).map(
         (formField: string, index: number) => {
-            const { elementConfig, validation } =
+            const { elementType, elementConfig, validation } =
                 FORM_FIELDS[formField as keyof typeof FORM_FIELDS];
     
             return (
                 <Input
                     testid={`testid-${formField}`}
                     key={formField}
+                    elementType={elementType}
                     elementConfig={elementConfig}
                     name={formField}
                     register={register}
@@ -122,13 +126,13 @@ const PasswordEdit = (props: PasswordEditPropsType) => {
                 <Button
                     btnType='BtnDanger'
                     label='Reset'
-                    disabled={!isValid} clicked={onResetFormHandler}
+                    disabled={!isFormValid} clicked={onResetFormHandler}
                 />
 
                 <Button
                     btnType='BtnCustom'
                     label='Update'
-                    disabled={!isValid} clicked={handleSubmit(onSubmit)}
+                    disabled={!isFormValid} clicked={handleSubmit(onSubmit)}
                 />
 
                 <p className={showPasswordErrorClassList.join(' ')}>Passwords don't match!</p>

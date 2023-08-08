@@ -1,5 +1,6 @@
 const FORM_FIELDS = {
     currentPassword: {
+        elementType: 'input',
         elementConfig: {
             type: "password",
             placeholder: "Current Password",
@@ -9,6 +10,7 @@ const FORM_FIELDS = {
         }
     },
     newPassword: {
+        elementType: 'input',
         elementConfig: {
             type: "password",
             placeholder: "New Password",
@@ -23,6 +25,7 @@ const FORM_FIELDS = {
         },
     },
     confirmPassword: {
+        elementType: 'input',
         elementConfig: {
             type: "password",
             placeholder: "Confirm Password",

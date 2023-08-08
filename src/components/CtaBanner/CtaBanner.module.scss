@@ -1,0 +1,31 @@
+@import '../../variables';
+
+.CtaBanner {
+    background-image: url(../../assets/images/happy-doggos.jpg);
+    background-position: 50% 33%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    height: 25rem;
+    position: relative;
+
+    &__Overlay {
+        height: 100%;
+        z-index: 1;
+        background: linear-gradient(0deg, $color-bluish-dark 0%, transparent 166%);
+    }
+
+    &__Cta {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        text-align: center;
+        
+        h3 {
+            font-size: $small-header-font-size;
+            color: $color-white;
+            margin-bottom: 2rem;
+        }
+    }
+}

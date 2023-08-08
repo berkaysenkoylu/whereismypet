@@ -17,6 +17,7 @@ interface LoginPropsType {
 
 const FORM_FIELDS = {
     email: {
+        elementType: 'input',
         elementConfig: {
             type: "text",
             placeholder: "Email",
@@ -27,6 +28,7 @@ const FORM_FIELDS = {
         }
     },
     password: {
+        elementType: 'input',
         elementConfig: {
             type: "password",
             placeholder: "Password",
@@ -62,13 +64,14 @@ const Login = (props: LoginPropsType) => {
 
     const formContent = Object.keys(FORM_FIELDS).map(
         (formField: string, index: number) => {
-          const { elementConfig, validation } =
+          const { elementType, elementConfig, validation } =
             FORM_FIELDS[formField as keyof typeof FORM_FIELDS];
     
           return (
             <Input
                 testid={`testid-${formField}`}
                 key={formField}
+                elementType={elementType}
                 elementConfig={elementConfig}
                 name={formField}
                 register={register}

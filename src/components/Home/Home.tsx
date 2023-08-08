@@ -1,9 +1,16 @@
-import PostSlider from "../PostSlider/PostSlider";
+import { useNavigate } from 'react-router-dom';
+
+import CtaBanner from '../CtaBanner/CtaBanner';
 
 const Home = () => {
+    const navigate = useNavigate();
     return (
         <>
-            <PostSlider />
+            <CtaBanner
+                title="Let's Bring Them Back – Report a Missing stuff!"
+                buttonName='<Create a post />'
+                buttonClick={() => navigate('/new-poster')}
+            />
         </>
     );
 }

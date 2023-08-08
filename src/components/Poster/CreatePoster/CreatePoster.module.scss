@@ -1,0 +1,29 @@
+@import '../../../variables';
+
+.CreatePoster {
+    h2 {
+        @include h2TitleStyle;
+    }
+
+    &__Body {
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin: 4rem -1.5rem 0 -1.5rem;
+
+        &__Left {
+            flex: 0 0 66.666667%;
+            max-width: 66.666667%;
+
+            form {
+                width: 75%;
+                margin: 0 auto;
+            }
+        }
+
+        &__Right {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+    }
+}

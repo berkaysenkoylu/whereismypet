@@ -70,6 +70,11 @@
     }
 }
 
+.TextArea {
+    height: 20rem;
+    // resize: none;
+}
+
 .ValidationError {
     position: absolute;
     right: 0;
