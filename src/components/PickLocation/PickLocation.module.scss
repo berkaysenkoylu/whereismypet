@@ -1,0 +1,23 @@
+@import '../../variables';
+
+.PickLocation {
+    width: 100%;
+    height: 30rem;
+
+    h3 {
+        font-size: $default-font-size;
+        color: rgba($color-grey-light-2, 0.85);
+        margin-bottom: 1.5rem;
+    }
+
+    &__PickedCoords {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+            font-size: $small-font-size-2;
+        }
+    }
+}

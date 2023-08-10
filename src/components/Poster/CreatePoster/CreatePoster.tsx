@@ -2,6 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 
 import classes from './CreatePoster.module.scss';
 import Input from '../../UI/Input/Input';
+import PickLocation from '../../PickLocation/PickLocation';
 
 interface CreatePosterFormType {
     title: string
@@ -68,6 +69,8 @@ const CreatePoster = () => {
                             validationResult={errors['description'] || {}}
                             lastChild={false}
                         />
+
+                        <PickLocation />
                     </form>
                 </div>
                 <div className={classes.CreatePoster__Body__Right}>
