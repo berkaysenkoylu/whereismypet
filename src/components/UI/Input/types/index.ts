@@ -11,9 +11,15 @@ export interface InputValidationType {
     validate?: (value: any) => any
 }
 
+interface SelectOptionsType {
+    value: string
+    displayValue: string
+}
+
 export interface ElementConfigType {
     type: string
     placeholder: string
+    options?: SelectOptionsType[]
 }
 
 export interface ValidationResultType {

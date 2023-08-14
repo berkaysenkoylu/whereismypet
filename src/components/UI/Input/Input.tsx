@@ -76,6 +76,12 @@ const Input = (props: InputPropsType) => {
 
     let inputElement = null;
 
+    let options;
+
+    if (props.elementConfig.options) {
+        options = props.elementConfig.options;
+    }
+
     switch(elementType) {
         case 'input':
             inputElement = <input
@@ -104,6 +110,21 @@ const Input = (props: InputPropsType) => {
                 {...props.elementConfig}
             />;
             break;
+        case 'select':
+            // TODO validation is not working properly. Revisit this.
+            inputElement = (
+                <div className={classes.SelectElementContainer}>
+                    <div className={classes.SelectElementName}>{placeholder}</div>
+                    <select 
+                        className={classes.SelectElement}
+                        {...register(name, validation)}>
+                            {options && options.map(option => (
+                                <option key={option.value} value={option.value}>{option.displayValue}</option>
+                            ))}
+                    </select>
+                </div>
+            );
+            break;
         default:
             console.error('Something wrong with your input element!');
             break;
@@ -121,14 +142,15 @@ const Input = (props: InputPropsType) => {
                     ? classes.ShowValidationError
                     : null,
                 ].join(" ")}
+                style={elementType === 'select' ? { left: '0' } : {}}
             >
                 {message}
             </span>
 			{inputElement}
-            <span className={classes.InputContainer__BottomBorder} style={elementType === 'textarea' ? {bottom: '2px'} : {}}></span>
-            <label>
+            {elementType !== 'select' ? <span className={classes.InputContainer__BottomBorder} style={elementType === 'textarea' ? {bottom: '2px'} : {}}></span> : null}
+            {elementType !== 'select' ? <label>
                 {placeholder}
-            </label>
+            </label> : null}
 		</div>
 	);
 }

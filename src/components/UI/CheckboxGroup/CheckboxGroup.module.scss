@@ -1,0 +1,15 @@
+@import '../../../variables';
+
+.CheckboxGroup {
+    margin: 1rem 0 3rem 0;
+
+    h3 {
+        font-size: $default-font-size;
+        color: rgba($color-grey-light-2, 0.85);
+        margin-bottom: 1.5rem;
+    }
+
+    &__Checkboxes {
+        display: flex;
+    }
+}

@@ -72,7 +72,37 @@
 
 .TextArea {
     height: 20rem;
-    // resize: none;
+    resize: none;
+}
+
+.SelectElementContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.SelectElementName {
+    margin-right: 1rem;
+    font-weight: 500;
+    color: rgba($color-grey-light-2, 0.85);
+
+    &::after {
+        content: ':'
+    }
+}
+
+.SelectElement {
+    display: block;
+    font-family: inherit;
+    font-size: $default-font-size;
+    height: 3.5rem;
+    padding: 0;
+    cursor: pointer;
+
+    &::selection {
+        outline: none;
+        border-bottom: 3px solid $color-bluish;
+    }
 }
 
 .ValidationError {
@@ -85,6 +115,7 @@
     color: $color-tertiary-4;
     font-weight: 500;
     text-decoration: underline;
+    opacity: 0;
 
     &::before {
         content: "*";
@@ -94,6 +125,7 @@
 
 .ShowValidationError {
     transform: translateY(-2rem);
+    opacity: 1;
 }
 
 .InvalidInput {
