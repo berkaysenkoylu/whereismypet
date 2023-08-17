@@ -1,0 +1,9 @@
+
+
+.MultiImageShowcase {
+    width: 20rem;
+    height: 20rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+}

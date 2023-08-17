@@ -5,6 +5,8 @@ import classes from './CreatePoster.module.scss';
 import Input from '../../UI/Input/Input';
 import PickLocation from '../../PickLocation/PickLocation';
 import CheckboxGroup from '../../UI/CheckboxGroup/CheckboxGroup';
+import DragAndDropFileSelect from '../../DragAndDropFileSelect/DragAndDropFileSelect';
+import MultiImageShowcase from '../../MultiImageShowcase/MultiImageShowcase';
 
 interface CreatePosterFormType {
     title: string
@@ -33,6 +35,7 @@ const CreatePoster = () => {
         { name: 'with prize', checked: false },
         { name: 'pinned', checked: false }
     ]);
+    const [selectedImages, setSelectedImages] = useState<FileList>();
 
     const onItemCheckedHandler = (name: string) => {
         const copiedCheckboxes = checkboxes.map(item => {
@@ -43,6 +46,10 @@ const CreatePoster = () => {
         });
 
         setCheckboxes(copiedCheckboxes);
+    }
+
+    const onImagesSelectedHandler = (files: FileList | undefined) => {
+        setSelectedImages(files);
     }
 
     const onSubmit: SubmitHandler<CreatePosterFormType> = (data) => {
@@ -150,7 +157,13 @@ const CreatePoster = () => {
                     </form>
                 </div>
                 <div className={classes.CreatePoster__Body__Right}>
-                    
+                    <MultiImageShowcase style={{ width: '80%', margin: '0 auto' }} />
+
+                    <DragAndDropFileSelect
+                        singleImageSelect={false}
+                        fileList={selectedImages as FileList}
+                        multiFileDropHandle={onImagesSelectedHandler}
+                    />
                 </div>
             </div>
         </section>

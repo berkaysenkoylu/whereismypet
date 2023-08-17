@@ -11,10 +11,10 @@ const MIME_TYPE_MAP = {
 
 interface DragAndDropFileSelectPropsType {
     singleImageSelect?: boolean
-    file: File
+    file?: File
     fileList?: FileList
     userImage?: string | null
-    dropHandle: (file: File | undefined) => void
+    dropHandle?: (file: File | undefined) => void
     multiFileDropHandle?: (files: FileList | undefined) => void
 }
 
@@ -121,7 +121,7 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
         if (event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files.length > 0) {
             if (singleImageSelect) {
                 if(checkMimeType(event.dataTransfer.files[0].type)) {
-                    dropHandle(event.dataTransfer.files[0]);
+                    dropHandle && dropHandle(event.dataTransfer.files[0]);
     
                     const name = event.dataTransfer.files[0].name;
 
@@ -132,7 +132,7 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
                 } else {
                     // If file is selected previously
                     if (!file) {
-                        dropHandle(undefined);
+                        dropHandle && dropHandle(undefined);
                         // Reset the state
                         setClassList([classes.DropContainer])
                         setContentClassList([classes.DropContainer__InfoText]);
@@ -159,7 +159,9 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
                 const possibleNameArr = [];
 
                 if (selectedFileList.length > 4) {
-                    console.log("YOU CANNOT UPLOAD MORE THAN 4 FILES");
+                    setClassList([classes.DropContainer, classes.DropContainer__Enter]);
+                    setContentClassList([classes.DropContainer__InfoText, classes.InvalidFileType]);
+                    setLabelText("YOU CANNOT UPLOAD MORE THAN 4 FILES");
                     return;
                 }
 
@@ -231,7 +233,7 @@ const DragAndDropFileSelect = (props: DragAndDropFileSelectPropsType) => {
             setSelectedFileName(inpFile.name);
             setLabelText(`Selected file: ${inpFile.name}`);
 
-            dropHandle(inpFile);
+            dropHandle && (inpFile);
         } else {
             const selectedFileList: FileList = file as FileList;
             let isValidMimeType = true;
